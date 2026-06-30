@@ -1,6 +1,5 @@
 #pragma once
 #include "../Library/GameObject.h"
-#include "StatusManager.h"
 
 class Player : public GameObject {
 
@@ -13,7 +12,8 @@ public:
 private:
 
 	int hImage[1];
-	int count = 0;
+	float AtackCount = 0.0f;
+	bool isDead = false;
 
 };
 

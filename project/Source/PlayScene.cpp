@@ -1,12 +1,20 @@
 #include "PlayScene.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Back.h"
 #include "StatusManager.h"
+#include "KeyUtility.h"
+#include "MouseUtility.h"
+
+GameState gamestate;
 
 PlayScene::PlayScene()
 {
+	gamestate = GameState::home;
+
 	new Back();
 	new Player();
+	new Enemy();
 }
 
 PlayScene::~PlayScene()
@@ -15,16 +23,110 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_T)) {
+
+	switch (gamestate) {
+
+	case GameState::home:
+
+		if (KeyUtility::CheckTrigger(KEY_INPUT_B)) {
+			gamestate = GameState::battle;
+		}
+
+		if (KeyUtility::CheckTrigger(KEY_INPUT_T)) {
+			gamestate = GameState::training;
+		}
+
+		break;
+
+	case GameState::battle:
+
+		if (!StatusSet) {
+			statusmanager.SetEnemyStatus(ELevel);
+			statusmanager.Php = statusmanager.MaxPhp;
+			StatusSet = true;
+		}
+
+		if (statusmanager.Php <= 0) {
+			isWin = false;
+			gamestate = GameState::result;
+		}
+		else if (statusmanager.Ehp <= 0) {
+			isWin = true;
+			statusmanager.AddStatusPoint(10);
+			gamestate = GameState::result;
+		}
+
+		break;
+
+	case GameState::result:
+
+		StatusSet = false;
+
+		if (KeyUtility::CheckTrigger(KEY_INPUT_H)) {
+			gamestate = GameState::home;
+		}
+
+		break;
+
+	case GameState::training:
+
+		if (KeyUtility::CheckTrigger(KEY_INPUT_H)) {
+			gamestate = GameState::home;
+		}
+
+		if (statusmanager.StatusPoint >= statusmanager.NextNeedPoint) {
+
+			if (KeyUtility::CheckTrigger(KEY_INPUT_1)) {
+				statusmanager.AddMaxPhp();
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_2)) {
+				statusmanager.AddPAtack();
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_3)) {
+				statusmanager.SubtractPAtackWaiting();
+			}
+		}
+
+		break;
+
+	}
+
+
+	if (CheckHitKey(KEY_INPUT_0)) {
 		SceneManager::ChangeScene("TITLE");
 	}
 }
 
 void PlayScene::Draw()
 {
-	StatusManager statusmanager;
+	switch (gamestate) {
+
+	case GameState::home:
+		DrawString(100, 500, "gamestate = home", GetColor(0, 0, 0));
+		break;
+
+	case GameState::battle:
+		DrawString(100, 500, "gamestate = battle", GetColor(0, 0, 0));
+		break;
+
+	case GameState::result:
+		DrawString(100, 500, "gamestate = result", GetColor(0, 0, 0));
+		break;
+
+	case GameState::training:
+		DrawString(100, 500, "gamestate = training", GetColor(0, 0, 0));
+		break;
+
+	}
+
 
 	DrawString(0, 0, "PLAY SCENE", GetColor(0, 0, 0));
-	DrawString(100, 400, "Push [T]Key To Title", GetColor(0, 0, 0));
+	DrawString(100, 400, "Push [0]Key To Title", GetColor(0, 0, 0));
+
+	DrawFormatString(100, 450, GetColor(0, 0, 0), "StatusPoint = %d", statusmanager.StatusPoint);
+	DrawFormatString(100, 550, GetColor(0, 0, 0), "NextNeedPoint = %d", statusmanager.NextNeedPoint);
+	DrawFormatString(100, 600, GetColor(0, 0, 0), "MaxPhp = %d", statusmanager.MaxPhp);
+	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAtack);
+	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAtackWaiting);
 
 }

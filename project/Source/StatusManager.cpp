@@ -1,24 +1,72 @@
 #include "StatusManager.h"
 
+int StatusManager::MaxPhp = 100;
+int StatusManager::MaxEhp = 100;
 int StatusManager::Php = 100;
 int StatusManager::Ehp = 100;
-int StatusManager::PAtack = 10;
+int StatusManager::PAtack = 100;
 int StatusManager::EAtack = 10;
+float StatusManager::PAtackWaiting = 5.0f * 60.0f;
+float StatusManager::EAtackWaiting = 5.0f * 60.0f;
+int StatusManager::StatusPoint = 0;
+int StatusManager::ELevel = 1;
+int StatusManager::NextNeedPoint = 1;
 
-void StatusManager::Damage(bool AtackCharacter //Player = 1, Enemy = 0
-)
+StatusManager statusmanager;
+
+void StatusManager::Atack(int AtackCharacter)
 {
-
-	switch (AtackCharacter) {
-		
-	case true:
+	switch (AtackCharacter) {	
+	case 1:
 		Ehp -= PAtack;
 		break;
-
-	case false:
+	case 0:
 		Php -= EAtack;
+		break;
+	}
+}
+
+void StatusManager::AddStatusPoint(int AddPoint)
+{
+	StatusPoint += AddPoint;
+}
+
+void StatusManager::SetEnemyStatus(int Level)
+{
+	ELevel = Level;
+
+	switch (ELevel) {
+
+	case 1:
+
+		MaxEhp = 100;
+		EAtack = 10;
+		EAtackWaiting = 5.0f * 60.0f;
 		break;
 
 	}
 
+	Ehp = MaxEhp;
+
+}
+
+void StatusManager::AddMaxPhp()
+{
+	StatusPoint -= NextNeedPoint;
+	MaxPhp += 1;
+	NextNeedPoint += 1;
+}
+
+void StatusManager::AddPAtack()
+{
+	StatusPoint -= NextNeedPoint;
+	PAtack += 1;
+	NextNeedPoint += 1;
+}
+
+void StatusManager::SubtractPAtackWaiting()
+{
+	StatusPoint -= NextNeedPoint;
+	PAtackWaiting -= 10.0f;
+	NextNeedPoint += 1;
 }
