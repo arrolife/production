@@ -29,11 +29,44 @@ void PlayScene::Update()
 	case GameState::home:
 
 		if (KeyUtility::CheckTrigger(KEY_INPUT_B)) {
-			gamestate = GameState::battle;
+			isLevelSelect = true;
 		}
 
 		if (KeyUtility::CheckTrigger(KEY_INPUT_T)) {
 			gamestate = GameState::training;
+		}
+
+		if (isLevelSelect) {
+			if (KeyUtility::CheckTrigger(KEY_INPUT_1)) {
+				if (ReleaseLevel >= 1) {
+					SelectLevel = 1;
+					gamestate = GameState::battle;
+				}
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_2)) {
+				if (ReleaseLevel >= 2) {
+					SelectLevel = 2;
+					gamestate = GameState::battle;
+				}
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_3)) {
+				if (ReleaseLevel >= 3) {
+					SelectLevel = 3;
+					gamestate = GameState::battle;
+				}
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_4)) {
+				if (ReleaseLevel >= 4) {
+					SelectLevel = 4;
+					gamestate = GameState::battle;
+				}
+			}
+			if (KeyUtility::CheckTrigger(KEY_INPUT_5)) {
+				if (ReleaseLevel >= 5) {
+					SelectLevel = 5;
+					gamestate = GameState::battle;
+				}
+			}
 		}
 
 		break;
@@ -41,9 +74,10 @@ void PlayScene::Update()
 	case GameState::battle:
 
 		if (!StatusSet) {
-			statusmanager.SetEnemyStatus(ELevel);
+			statusmanager.SetEnemyStatus(SelectLevel);
 			statusmanager.Php = statusmanager.MaxPhp;
 			StatusSet = true;
+			isLevelSelect = false;
 		}
 
 		if (statusmanager.Php <= 0) {
@@ -53,7 +87,13 @@ void PlayScene::Update()
 		else if (statusmanager.Ehp <= 0) {
 			isWin = true;
 			statusmanager.AddStatusPoint(10);
+			if (SelectLevel == ReleaseLevel) {
+				ReleaseLevel += 1;
+			}
+			SelectLevel = 0;
 			gamestate = GameState::result;
+
+			
 		}
 
 		break;
@@ -124,6 +164,7 @@ void PlayScene::Draw()
 	DrawString(100, 400, "Push [0]Key To Title", GetColor(0, 0, 0));
 
 	DrawFormatString(100, 450, GetColor(0, 0, 0), "StatusPoint = %d", statusmanager.StatusPoint);
+	DrawFormatString(100, 350, GetColor(0, 0, 0), "ReleaseLevel = %d", ReleaseLevel);
 	DrawFormatString(100, 550, GetColor(0, 0, 0), "NextNeedPoint = %d", statusmanager.NextNeedPoint);
 	DrawFormatString(100, 600, GetColor(0, 0, 0), "MaxPhp = %d", statusmanager.MaxPhp);
 	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAtack);

@@ -14,8 +14,10 @@ public:
 
 private:
 	bool StatusSet = false;
-	int ELevel = 1;
 	bool isWin = false;
+	int ReleaseLevel = 1;
+	bool isLevelSelect = false;
+	int SelectLevel = 0;
 
 };
 
