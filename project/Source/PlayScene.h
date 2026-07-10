@@ -25,7 +25,8 @@ enum class GameState {
 	home,
 	battle,
 	result,
-	training
+	training,
+	clear
 };
 
 extern GameState gamestate;

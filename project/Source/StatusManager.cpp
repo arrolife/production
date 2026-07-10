@@ -44,6 +44,34 @@ void StatusManager::SetEnemyStatus(int Level)
 		EAtackWaiting = 5.0f * 60.0f;
 		break;
 
+	case 2:
+
+		MaxEhp = 1000;
+		EAtack = 100;
+		EAtackWaiting = 5.0f * 60.0f;
+		break;
+
+	case 3:
+
+		MaxEhp = 1000;
+		EAtack = 100;
+		EAtackWaiting = 5.0f * 60.0f;
+		break;
+
+	case 4:
+
+		MaxEhp = 10000;
+		EAtack = 1000;
+		EAtackWaiting = 5.0f * 60.0f;
+		break;
+
+	case 5:
+
+		MaxEhp = 10000;
+		EAtack = 1000;
+		EAtackWaiting = 5.0f * 60.0f;
+		break;
+
 	}
 
 	Ehp = MaxEhp;

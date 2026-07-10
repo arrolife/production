@@ -25,7 +25,7 @@ void Player::Update()
 
 		if (!isDead) {
 
-			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
+			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick)
 			{
 				AtackCount += 10;
 				isClick = true;
