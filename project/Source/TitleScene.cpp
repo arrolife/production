@@ -1,12 +1,9 @@
 #include "TitleScene.h"
 #include "Back.h"
-#include "KeyUtility.h"
-#include "MouseUtility.h"
 
 TitleScene::TitleScene()
 {
-	KeyUtility::Init();
-	MouseUtility::Init();
+	
 	new Back();
 }
 

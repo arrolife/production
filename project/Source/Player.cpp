@@ -1,8 +1,6 @@
 #include "Player.h"
 #include "StatusManager.h"
 #include "PlayScene.h"
-#include "KeyUtility.h"
-#include "MouseUtility.h"
 
 Player::Player()
 {
@@ -27,9 +25,10 @@ void Player::Update()
 
 		if (!isDead) {
 
-			if (MouseUtility::CheckTrigger(MOUSE_INPUT_LEFT))
+			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
 			{
 				AtackCount += 10;
+				isClick = true;
 			}
 			AtackCount += 1;
 			if (AtackCount >= statusmanager.PAtackWaiting) {
@@ -48,6 +47,11 @@ void Player::Update()
 		break;
 
 	}
+
+	if (GetMouseInput() == 0) {
+		isClick = false;
+	}
+
 }
 
 void Player::Draw()

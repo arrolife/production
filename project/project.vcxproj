@@ -155,14 +155,12 @@
     <ClInclude Include="Source\Back.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Enemy.h" />
-    <ClInclude Include="Source\MouseUtility.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Source\StatusManager.h" />
     <ClInclude Include="Source\TitleScene.h" />
-    <ClInclude Include="Source\KeyUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -181,13 +179,11 @@
     <ClCompile Include="Source\Back.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
-    <ClCompile Include="Source\MouseUtility.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\StatusManager.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
-    <ClCompile Include="Source\KeyUtility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

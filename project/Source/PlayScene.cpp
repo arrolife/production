@@ -3,8 +3,6 @@
 #include "Enemy.h"
 #include "Back.h"
 #include "StatusManager.h"
-#include "KeyUtility.h"
-#include "MouseUtility.h"
 
 GameState gamestate;
 
@@ -28,40 +26,40 @@ void PlayScene::Update()
 
 	case GameState::home:
 
-		if (KeyUtility::CheckTrigger(KEY_INPUT_B)) {
+		if (CheckHitKey(KEY_INPUT_B)) {
 			isLevelSelect = true;
 		}
 
-		if (KeyUtility::CheckTrigger(KEY_INPUT_T)) {
+		if (CheckHitKey(KEY_INPUT_T)) {
 			gamestate = GameState::training;
 		}
 
 		if (isLevelSelect) {
-			if (KeyUtility::CheckTrigger(KEY_INPUT_1)) {
+			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
 					SelectLevel = 1;
 					gamestate = GameState::battle;
 				}
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_2)) {
+			if (CheckHitKey(KEY_INPUT_2)) {
 				if (ReleaseLevel >= 2) {
 					SelectLevel = 2;
 					gamestate = GameState::battle;
 				}
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_3)) {
+			if (CheckHitKey(KEY_INPUT_3)) {
 				if (ReleaseLevel >= 3) {
 					SelectLevel = 3;
 					gamestate = GameState::battle;
 				}
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_4)) {
+			if (CheckHitKey(KEY_INPUT_4)) {
 				if (ReleaseLevel >= 4) {
 					SelectLevel = 4;
 					gamestate = GameState::battle;
 				}
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_5)) {
+			if (CheckHitKey(KEY_INPUT_5)) {
 				if (ReleaseLevel >= 5) {
 					SelectLevel = 5;
 					gamestate = GameState::battle;
@@ -102,7 +100,7 @@ void PlayScene::Update()
 
 		StatusSet = false;
 
-		if (KeyUtility::CheckTrigger(KEY_INPUT_H)) {
+		if (CheckHitKey(KEY_INPUT_H)) {
 			gamestate = GameState::home;
 		}
 
@@ -110,19 +108,19 @@ void PlayScene::Update()
 
 	case GameState::training:
 
-		if (KeyUtility::CheckTrigger(KEY_INPUT_H)) {
+		if (CheckHitKey(KEY_INPUT_H)) {
 			gamestate = GameState::home;
 		}
 
 		if (statusmanager.StatusPoint >= statusmanager.NextNeedPoint) {
 
-			if (KeyUtility::CheckTrigger(KEY_INPUT_1)) {
+			if (CheckHitKey(KEY_INPUT_1)) {
 				statusmanager.AddMaxPhp();
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_2)) {
+			if (CheckHitKey(KEY_INPUT_2)) {
 				statusmanager.AddPAtack();
 			}
-			if (KeyUtility::CheckTrigger(KEY_INPUT_3)) {
+			if (CheckHitKey(KEY_INPUT_3)) {
 				statusmanager.SubtractPAtackWaiting();
 			}
 		}

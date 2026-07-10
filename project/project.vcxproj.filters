@@ -62,10 +62,6 @@
     <ClCompile Include="Source\StatusManager.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\KeyUtility.cpp" />
-    <ClCompile Include="Source\MouseUtility.cpp">
-      <Filter>Library</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -142,8 +138,6 @@
     <ClInclude Include="Source\StatusManager.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\KeyUtility.h" />
-    <ClInclude Include="Source\MouseUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
