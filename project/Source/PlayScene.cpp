@@ -26,6 +26,38 @@ void PlayScene::Update()
 
 	case GameState::home:
 
+
+		AutoAddCount += 1;
+
+		if (AutoAddCount >= 10 * 60) {
+
+			switch (ReleaseLevel) {
+
+			case 1:
+				statusmanager.AddStatusPoint(1);
+				break;
+
+			case 2:
+				statusmanager.AddStatusPoint(2);
+				break;
+
+			case 3:
+				statusmanager.AddStatusPoint(20);
+				break;
+
+			case 4:
+				statusmanager.AddStatusPoint(200);
+				break;
+
+			case 5:
+				statusmanager.AddStatusPoint(2000);
+				break;
+
+			}
+
+		}
+
+
 		if (CheckHitKey(KEY_INPUT_B)) {
 			isLevelSelect = true;
 		}

@@ -18,6 +18,7 @@ private:
 	int ReleaseLevel = 1;
 	bool isLevelSelect = false;
 	int SelectLevel = 0;
+	int AutoAddCount = 0;
 
 };
 

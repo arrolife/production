@@ -67,8 +67,8 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 5:
 
-		MaxEhp = 10000;
-		EAtack = 1000;
+		MaxEhp = 100000;
+		EAtack = 10000;
 		EAtackWaiting = 5.0f * 60.0f;
 		break;
 
@@ -81,20 +81,20 @@ void StatusManager::SetEnemyStatus(int Level)
 void StatusManager::AddMaxPhp()
 {
 	StatusPoint -= NextNeedPoint;
-	MaxPhp += 1;
+	MaxPhp += 10;
 	NextNeedPoint += 1;
 }
 
 void StatusManager::AddPAtack()
 {
 	StatusPoint -= NextNeedPoint;
-	PAtack += 1;
+	PAtack += 10;
 	NextNeedPoint += 1;
 }
 
 void StatusManager::SubtractPAtackWaiting()
 {
 	StatusPoint -= NextNeedPoint;
-	PAtackWaiting -= 10.0f;
+	PAtackWaiting -= 5.0f;
 	NextNeedPoint += 1;
 }
