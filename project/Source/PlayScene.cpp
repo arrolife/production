@@ -38,19 +38,19 @@ void PlayScene::Update()
 				break;
 
 			case 2:
-				statusmanager.AddStatusPoint(2);
+				statusmanager.AddStatusPoint(1);
 				break;
 
 			case 3:
-				statusmanager.AddStatusPoint(20);
+				statusmanager.AddStatusPoint(2);
 				break;
 
 			case 4:
-				statusmanager.AddStatusPoint(200);
+				statusmanager.AddStatusPoint(25);
 				break;
 
 			case 5:
-				statusmanager.AddStatusPoint(2000);
+				statusmanager.AddStatusPoint(250);
 				break;
 
 			}
