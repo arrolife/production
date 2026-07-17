@@ -1,6 +1,5 @@
 #include "Back.h"
 #include "Screen.h"
-#include "SceneManager.h"
 
 Back::Back()
 {

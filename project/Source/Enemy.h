@@ -11,8 +11,10 @@ public:
 
 private:
 
-	int hImage[1];
-	float AtackCount = 0.0f;
+	int hImage[12];
+	float AttackCount = 0.0f;
+	float DirectionCount = 0;
+	bool isAttack = false;
 	bool isDead = false;
 
 };

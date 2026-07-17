@@ -175,10 +175,10 @@ void PlayScene::Update()
 				statusmanager.AddMaxPhp();
 			}
 			if (CheckHitKey(KEY_INPUT_2)) {
-				statusmanager.AddPAtack();
+				statusmanager.AddPAttack();
 			}
 			if (CheckHitKey(KEY_INPUT_3)) {
-				statusmanager.SubtractPAtackWaiting();
+				statusmanager.SubtractPAttackWaiting();
 			}
 		}
 
@@ -222,7 +222,7 @@ void PlayScene::Draw()
 	DrawFormatString(100, 350, GetColor(0, 0, 0), "ReleaseLevel = %d", ReleaseLevel);
 	DrawFormatString(100, 550, GetColor(0, 0, 0), "NextNeedPoint = %d", statusmanager.NextNeedPoint);
 	DrawFormatString(100, 600, GetColor(0, 0, 0), "MaxPhp = %d", statusmanager.MaxPhp);
-	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAtack);
-	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAtackWaiting);
+	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAttack);
+	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAttackWaiting);
 
 }

@@ -27,13 +27,13 @@ void Player::Update()
 
 			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick)
 			{
-				AtackCount += 10;
+				AttackCount += 10;
 				isClick = true;
 			}
-			AtackCount += 1;
-			if (AtackCount >= statusmanager.PAtackWaiting) {
-				AtackCount = 0;
-				statusmanager.Atack(1);
+			AttackCount += 1;
+			if (AttackCount >= statusmanager.PAttackWaiting) {
+				AttackCount = 0;
+				statusmanager.Attack(1);
 			}
 		}
 		if (statusmanager.Php <= 0 && !isDead) {
@@ -43,7 +43,7 @@ void Player::Update()
 
 	case GameState::result:
 		
-		AtackCount = 0;
+		AttackCount = 0;
 		break;
 
 	}

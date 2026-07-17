@@ -12,7 +12,7 @@ public:
 private:
 
 	int hImage[1];
-	float AtackCount = 0.0f;
+	float AttackCount = 0.0f;
 	bool isDead = false;
 	bool isClick = false;
 
