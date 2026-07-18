@@ -80,15 +80,22 @@ void Enemy::Draw()
 			//*23
 
 			if (!isAttack) {
-				DrawExtendGraph(960 + 200, 780, 960 + 161 + 200, 780 + 115, hImage[0], true);
+				DrawExtendGraph(960 + 200 + Ex, 780, 960 + 161 + 200 + Ex, 780 + 115, hImage[0], true);
+
+				if (Ex < 0) {
+					Ex += 50;
+				}
 			}
 			else {
-				DrawExtendGraph(960 + 200, 780, 960 + 161 + 200, 780 + 115, hImage[1], true);
-				DirectionCount += 1.0f;
-				if (DirectionCount >= statusmanager.EAttackWaiting / 3.0f) {
-					isAttack = false;
-					DirectionCount = 0;
+				DrawExtendGraph(960 + 200 + Ex, 780, 960 + 161 + 200 + Ex, 780 + 115, hImage[1], true);
+
+				if (Ex > -200) {
+					Ex -= 50;
 				}
+				else {
+					isAttack = false;
+				}
+
 			}
 			
 			break;
@@ -116,7 +123,8 @@ void Enemy::Draw()
 
 		switch (statusmanager.ELevel) {
 
-
+		case 1:
+			break;
 
 
 

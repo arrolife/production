@@ -16,5 +16,6 @@ private:
 	float DirectionCount = 0;
 	bool isAttack = false;
 	bool isDead = false;
+	int Ex = 0;
 
 };
