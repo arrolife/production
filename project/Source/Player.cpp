@@ -39,6 +39,11 @@ void Player::Update()
 		if (statusmanager.Php <= 0 && !isDead) {
 			isDead = true;
 		}
+
+		if (GetMouseInput() == 0) {
+			isClick = false;
+		}
+
 		break;
 
 	case GameState::result:
@@ -48,9 +53,7 @@ void Player::Update()
 
 	}
 
-	if (GetMouseInput() == 0) {
-		isClick = false;
-	}
+	
 
 }
 
