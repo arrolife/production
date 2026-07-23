@@ -39,7 +39,7 @@ void Enemy::Update()
 			if (AttackCount >= statusmanager.EAttackWaiting) {
 				AttackCount = 0;
 				statusmanager.Attack(0);
-				isAttack = true;
+				AttackMotion = true;
 			}
 		}
 
@@ -52,6 +52,7 @@ void Enemy::Update()
 	case GameState::result:
 
 		isAttack = false;
+		AttackMotion = false;
 
 		AttackCount = 0;
 		break;
@@ -75,19 +76,19 @@ void Enemy::Draw()
 		switch (statusmanager.ELevel) {
 		case 1:
 
-			//7:5 = 161:115
+			//7:5 = 140:100
 
-			//*23
+			//*20
 
 			if (!isAttack) {
-				DrawExtendGraph(960 + 200 + Ex, 780, 960 + 161 + 200 + Ex, 780 + 115, hImage[0], true);
+				DrawExtendGraph(960 + 200 + Ex, 780 + 50, 960 + 140 + 200 + Ex, 780 + 100 + 50, hImage[0], true);
 
 				if (Ex < 0) {
 					Ex += 50;
 				}
 			}
 			else {
-				DrawExtendGraph(960 + 200 + Ex, 780, 960 + 161 + 200 + Ex, 780 + 115, hImage[1], true);
+				DrawExtendGraph(960 + 200 + Ex, 780 + 50, 960 + 140 + 200 + Ex, 780 + 100 + 50, hImage[1], true);
 
 				if (Ex > -200) {
 					Ex -= 50;
@@ -120,6 +121,8 @@ void Enemy::Draw()
 		break;
 
 	case GameState::result:
+
+		Ex = 0;
 
 		switch (statusmanager.ELevel) {
 

@@ -11,5 +11,6 @@ public:
 
 private:
 
+	int hImage = 0;
 
 };

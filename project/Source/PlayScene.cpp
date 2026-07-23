@@ -21,6 +21,11 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+		SceneManager::Exit();
+	}
+
+
 
 	switch (gamestate) {
 
