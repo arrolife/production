@@ -4,7 +4,9 @@
 
 Player::Player()
 {
-	hImage[0] = LoadGraph("data/image/black.avif");
+	hImage[0] = LoadGraph("data/image/player/player_1.png");
+	hImage[1] = LoadGraph("data/image/player/player_2.png");
+	hImage[2] = LoadGraph("data/image/player/player_3.png");
 }
 
 Player::~Player()

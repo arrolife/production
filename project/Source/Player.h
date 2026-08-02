@@ -11,10 +11,14 @@ public:
 
 private:
 
-	int hImage[1];
+	int hImage[3];
 	float AttackCount = 0.0f;
 	bool isDead = false;
 	bool isClick = false;
+	int Px = 0;
+	int Py = 0;
+	int PWidth = 0;
+	int PHeight = 0;
 
 };
 

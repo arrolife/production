@@ -12,6 +12,11 @@ int StatusManager::StatusPoint = 0;
 int StatusManager::ELevel = 1;
 int StatusManager::NextNeedPoint = 1;
 
+int StatusManager::Ex = 0;
+int StatusManager::Ey = 0;
+int StatusManager::EWidth = 0;
+int StatusManager::EHeight = 0;
+
 StatusManager statusmanager;
 
 void StatusManager::Attack(int AtackCharacter)
@@ -42,6 +47,12 @@ void StatusManager::SetEnemyStatus(int Level)
 		MaxEhp = 100;
 		EAttack = 10;
 		EAttackWaiting = 5.0f * 60.0f;
+
+		Ex = 1160;
+		Ey = 830;
+		EWidth = 140;
+		EHeight = 100;
+
 		break;
 
 	case 2:

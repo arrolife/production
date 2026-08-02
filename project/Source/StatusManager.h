@@ -25,6 +25,11 @@ public:
 	static int EAttack;
 	static int ELevel;
 
+	static int Ex;
+	static int Ey;
+	static int EWidth;
+	static int EHeight;
+
 private:
 
 	

@@ -3,12 +3,16 @@
 #include "Enemy.h"
 #include "Back.h"
 #include "StatusManager.h"
+#include "Screen.h"
 
 GameState gamestate;
 
 PlayScene::PlayScene()
 {
 	gamestate = GameState::home;
+	hImage[0] = LoadGraph("data/image/UI/mouse.png");
+	hImage[1] = LoadGraph("data/image/UI/mouse_leftclick.png");
+	hImage[2] = LoadGraph("data/image/UI/mouse_rightclick.png");
 
 	new Back();
 	new Player();
@@ -21,10 +25,24 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}
 
+
+	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick) {
+		isClick = true;
+		MouseImage = 1;
+	}
+	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0 && !isClick) {
+		isClick = true;
+		MouseImage = 2;
+	}
+	if (GetMouseInput() == 0) {
+		isClick = false;
+		MouseImage = 0;
+	}
 
 
 	switch (gamestate) {
@@ -229,5 +247,9 @@ void PlayScene::Draw()
 	DrawFormatString(100, 600, GetColor(0, 0, 0), "MaxPhp = %d", statusmanager.MaxPhp);
 	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAttack);
 	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAttackWaiting);
+
+	Mx = Screen::WIDTH - MouseSize;
+	int num = MouseSize / 16;
+	DrawExtendGraph(Mx, My + num, Screen::WIDTH, My + MouseSize + num, hImage[MouseImage], true);
 
 }

@@ -4,18 +4,12 @@
 
 Enemy::Enemy()
 {
-	hImage[0] = LoadGraph("data/image/slime.png");
-	hImage[1] = LoadGraph("data/image/slime_02.png");
-	hImage[2] = LoadGraph("data/image/ghost.png");
-	hImage[3] = LoadGraph("data/image/ghost_02.png");
-	hImage[4] = LoadGraph("data/image/treant.png");
-	hImage[5] = LoadGraph("data/image/treant_02.png");
-	hImage[6] = LoadGraph("data/image/treant_03.png");
-	hImage[7] = LoadGraph("data/image/dragon.png");
-	hImage[8] = LoadGraph("data/image/dragon_02.png");
-	hImage[9] = LoadGraph("data/image/demonking.png");
-	hImage[10] = LoadGraph("data/image/demonking_02.png");
-	hImage[11] = LoadGraph("data/image/demonking_03.png");
+
+	UIImage[0] = LoadGraph("data/image/UI/exclamation_gray.png");
+	UIImage[1] = LoadGraph("data/image/UI/exclamation_red.png");
+	UIImage[2] = LoadGraph("data/image/UI/exclamation_blue.png");
+
+	hImage[0] = LoadGraph("data/image/enemy/slime_green.png");
 }
 
 Enemy::~Enemy()
@@ -66,6 +60,9 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 
+	DrawExtendGraph(0, 0, 100, 100, UIImage[0], true);
+
+
 	switch (gamestate) {
 
 	case GameState::home:
@@ -75,29 +72,9 @@ void Enemy::Draw()
 
 		switch (statusmanager.ELevel) {
 		case 1:
-
 			//7:5 = 140:100
-
 			//*20
-
-			if (!isAttack) {
-				DrawExtendGraph(960 + 200 + Ex, 780 + 50, 960 + 140 + 200 + Ex, 780 + 100 + 50, hImage[0], true);
-
-				if (Ex < 0) {
-					Ex += 50;
-				}
-			}
-			else {
-				DrawExtendGraph(960 + 200 + Ex, 780 + 50, 960 + 140 + 200 + Ex, 780 + 100 + 50, hImage[1], true);
-
-				if (Ex > -200) {
-					Ex -= 50;
-				}
-				else {
-					isAttack = false;
-				}
-
-			}
+				DrawExtendGraph(statusmanager.Ex, statusmanager.Ey, statusmanager.Ex + statusmanager.EWidth, statusmanager.Ey + statusmanager.EHeight, hImage[0], true);
 			
 			break;
 
@@ -121,8 +98,6 @@ void Enemy::Draw()
 		break;
 
 	case GameState::result:
-
-		Ex = 0;
 
 		switch (statusmanager.ELevel) {
 

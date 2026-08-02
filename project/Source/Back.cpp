@@ -3,7 +3,7 @@
 
 Back::Back()
 {
-	hImage = LoadGraph("data/image/background.jpg");
+	hImage = LoadGraph("data/image/background/grass.jpg");
 }
 
 Back::~Back()
