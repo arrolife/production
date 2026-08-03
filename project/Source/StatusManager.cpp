@@ -7,7 +7,8 @@ int StatusManager::Ehp = 100;
 int StatusManager::PAttack = 1;
 int StatusManager::EAttack = 10;
 float StatusManager::PAttackWaiting = 5.0f * 60.0f;
-float StatusManager::EAttackWaiting = 5.0f * 60.0f;
+int StatusManager::EAttackWaitMin = 0;
+int StatusManager::EAttackWaitMax = 0;
 int StatusManager::StatusPoint = 0;
 int StatusManager::ELevel = 1;
 int StatusManager::NextNeedPoint = 1;
@@ -16,6 +17,10 @@ int StatusManager::Ex = 0;
 int StatusManager::Ey = 0;
 int StatusManager::EWidth = 0;
 int StatusManager::EHeight = 0;
+float StatusManager::UIx01 = 0;
+float StatusManager::UIy01 = 0;
+float StatusManager::UISize01 = 0;
+float StatusManager::AttackSpeed = 0;
 
 StatusManager statusmanager;
 
@@ -46,12 +51,17 @@ void StatusManager::SetEnemyStatus(int Level)
 
 		MaxEhp = 100;
 		EAttack = 10;
-		EAttackWaiting = 5.0f * 60.0f;
 
 		Ex = 1160;
 		Ey = 830;
 		EWidth = 140;
 		EHeight = 100;
+		UIx01 = 1080.0f; // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 500.0f;
+		UISize01 = 300.0f;
+		AttackSpeed = 2.0f;
+		EAttackWaitMin = 180;
+		EAttackWaitMax = 300;
 
 		break;
 
@@ -59,28 +69,28 @@ void StatusManager::SetEnemyStatus(int Level)
 
 		MaxEhp = 1000;
 		EAttack = 100;
-		EAttackWaiting = 5.0f * 60.0f;
+		
 		break;
 
 	case 3:
 
 		MaxEhp = 1000;
 		EAttack = 100;
-		EAttackWaiting = 5.0f * 60.0f;
+		
 		break;
 
 	case 4:
 
 		MaxEhp = 10000;
 		EAttack = 1000;
-		EAttackWaiting = 5.0f * 60.0f;
+		
 		break;
 
 	case 5:
 
 		MaxEhp = 100000;
 		EAttack = 10000;
-		EAttackWaiting = 5.0f * 60.0f;
+		
 		break;
 
 	}

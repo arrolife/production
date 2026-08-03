@@ -69,7 +69,7 @@ void Player::Draw()
 
 	case GameState::battle:
 		if (!isDead) {
-			DrawExtendGraph(0, 0, 128, 128, hImage[0], true);
+			DrawExtendGraph(Px - PWidth, Py, Px, Py + PHeight, hImage[0], true);
 		}
 		break;
 

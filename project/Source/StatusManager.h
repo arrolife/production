@@ -21,7 +21,8 @@ public:
 
 	static int Ehp;
 	static int MaxEhp;
-	static float EAttackWaiting;
+	static int EAttackWaitMin;
+	static int EAttackWaitMax;
 	static int EAttack;
 	static int ELevel;
 
@@ -29,6 +30,10 @@ public:
 	static int Ey;
 	static int EWidth;
 	static int EHeight;
+	static float UIx01;
+	static float UIy01;
+	static float UISize01;
+	static float AttackSpeed;
 
 private:
 

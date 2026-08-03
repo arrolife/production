@@ -15,9 +15,19 @@ private:
 	int UIImage[3];
 	float AttackCount = 0.0f;
 	float DirectionCount = 0;
-	bool isAttack = false;\
+	bool isAttack = false;
 	bool isDead = false;
 	bool AttackMotion = false;
 	float MotionCount = 4.0f;
 
+	float UISizeChange = 0;
+	int Move = 0;
+	int MotionSpeed = 80;
+
+	int AttackWait = 0;
+	bool RandomSelect = false;
+
+	int TimeCount = 0;
+	bool UIMotion = false;
+	bool Back = false;
 };

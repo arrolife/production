@@ -93,6 +93,15 @@ void PlayScene::Update()
 			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
 					SelectLevel = 1;
+
+					//仮
+					if (!StatusSet) {
+						statusmanager.SetEnemyStatus(SelectLevel);
+						statusmanager.Php = statusmanager.MaxPhp;
+						StatusSet = true;
+						isLevelSelect = false;
+					}
+
 					gamestate = GameState::battle;
 				}
 			}
@@ -126,12 +135,12 @@ void PlayScene::Update()
 
 	case GameState::battle:
 
-		if (!StatusSet) {
+		/*if (!StatusSet) {
 			statusmanager.SetEnemyStatus(SelectLevel);
 			statusmanager.Php = statusmanager.MaxPhp;
 			StatusSet = true;
 			isLevelSelect = false;
-		}
+		}*/
 
 		if (statusmanager.Php <= 0) {
 			isWin = false;

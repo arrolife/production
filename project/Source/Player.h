@@ -9,16 +9,17 @@ public:
 	void Update() override;
 	void Draw() override;
 
+
 private:
 
 	int hImage[3];
 	float AttackCount = 0.0f;
 	bool isDead = false;
 	bool isClick = false;
-	int Px = 0;
-	int Py = 0;
-	int PWidth = 0;
-	int PHeight = 0;
+	
+	int Px = 760;
+	int Py = 720;
+	int PWidth = 100 * 2;
+	int PHeight = 105 * 2;
 
 };
-

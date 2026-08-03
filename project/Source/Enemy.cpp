@@ -1,11 +1,12 @@
 #include "Enemy.h"
 #include "StatusManager.h"
 #include "PlayScene.h"
+#include "Player.h"
 
 Enemy::Enemy()
 {
 
-	UIImage[0] = LoadGraph("data/image/UI/exclamation_gray.png");
+	UIImage[0] = LoadGraph("data/image/UI/exclamation_black.png");
 	UIImage[1] = LoadGraph("data/image/UI/exclamation_red.png");
 	UIImage[2] = LoadGraph("data/image/UI/exclamation_blue.png");
 
@@ -28,14 +29,18 @@ void Enemy::Update()
 
 		isDead = false;
 
-		if (!isDead) {
-			AttackCount += 1;
-			if (AttackCount >= statusmanager.EAttackWaiting) {
-				AttackCount = 0;
-				statusmanager.Attack(0);
-				AttackMotion = true;
+		if (!RandomSelect) {
+			TimeCount = 0;
+			AttackWait = GetRand(statusmanager.EAttackWaitMax - statusmanager.EAttackWaitMin) + statusmanager.EAttackWaitMin;
+			RandomSelect = true;
+		}
+		else {
+			TimeCount += 1;
+			if (TimeCount >= AttackWait) {
+				UIMotion = true;
 			}
 		}
+
 
 		if (statusmanager.Ehp <= 0 && !isDead) {
 			isDead = true;
@@ -59,8 +64,7 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-
-	DrawExtendGraph(0, 0, 100, 100, UIImage[0], true);
+	//DrawExtendGraph(0, 0, 100, 100, UIImage[0], true);
 
 
 	switch (gamestate) {
@@ -73,9 +77,52 @@ void Enemy::Draw()
 		switch (statusmanager.ELevel) {
 		case 1:
 			//7:5 = 140:100
-			//*20
-				DrawExtendGraph(statusmanager.Ex, statusmanager.Ey, statusmanager.Ex + statusmanager.EWidth, statusmanager.Ey + statusmanager.EHeight, hImage[0], true);
-			
+			//*20 (statusmanager.UISize01 / 2)
+
+				
+
+				DrawExtendGraph(statusmanager.Ex - Move, statusmanager.Ey, statusmanager.Ex + statusmanager.EWidth - Move, statusmanager.Ey + statusmanager.EHeight, hImage[0], true);
+
+				if (UIMotion) {
+					if (!AttackMotion) {
+						if (UISizeChange < (statusmanager.UISize01 / 2)) {
+							UISizeChange += statusmanager.AttackSpeed;
+						}
+						else if (UISizeChange >= (statusmanager.UISize01 / 2)) {
+							UISizeChange = statusmanager.UISize01 / 2;
+							AttackMotion = true;
+						}
+					}
+
+					if (statusmanager.Ex - Move >= 760 && AttackMotion && !Back) {
+						Move += MotionSpeed;
+					}
+					else if (AttackMotion){
+						Move -= MotionSpeed;
+						Back = true;
+						if (Move < 0) {
+							AttackMotion = false;
+							UIMotion = false;
+							RandomSelect = false;
+							Back = false;
+							UISizeChange = 0;
+							Move = 0;
+						}
+					}
+
+					DrawExtendGraph(statusmanager.UIx01, statusmanager.UIy01, statusmanager.UIx01 + statusmanager.UISize01, statusmanager.UIy01 + statusmanager.UISize01, UIImage[0], true);
+
+					DrawExtendGraph(statusmanager.UIx01 + (statusmanager.UISize01 / 2) - UISizeChange,
+						statusmanager.UIy01 + (statusmanager.UISize01 / 2) - UISizeChange,
+						statusmanager.UIx01 + statusmanager.UISize01 - (statusmanager.UISize01 / 2) + UISizeChange,
+						statusmanager.UIy01 + statusmanager.UISize01 - (statusmanager.UISize01 / 2) + UISizeChange,
+						UIImage[1], true);
+
+				}
+
+				
+					
+
 			break;
 
 		case 2:
