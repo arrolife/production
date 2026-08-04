@@ -146,42 +146,6 @@ void PlayScene::Update()
 			isWin = false;
 			gamestate = GameState::result;
 		}
-		else if (statusmanager.Ehp <= 0) {
-			isWin = true;
-
-			switch (SelectLevel) {
-
-			case 1:
-				statusmanager.AddStatusPoint(1);
-				break;
-
-			case 2:
-				statusmanager.AddStatusPoint(10);
-				break;
-
-			case 3:
-				statusmanager.AddStatusPoint(100);
-				break;
-
-			case 4:
-				statusmanager.AddStatusPoint(1000);
-				break;
-
-			case 5:
-				statusmanager.AddStatusPoint(10000);
-				break;
-
-			}
-
-			
-			if (SelectLevel == ReleaseLevel) {
-				ReleaseLevel += 1;
-			}
-			SelectLevel = 0;
-			gamestate = GameState::result;
-
-			
-		}
 
 		break;
 

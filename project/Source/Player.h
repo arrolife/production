@@ -12,10 +12,18 @@ public:
 
 private:
 
-	int hImage[3];
-	float AttackCount = 0.0f;
+	int hImage[5];
+	int AttackCount = 0;
 	bool isDead = false;
 	bool isClick = false;
+	bool isAttack = false;
+
+
+	bool isGuard = false;
+	bool JustGuard = false;
+	bool Just = false;
+
+	bool AttackMotion = false;
 	
 	int Px = 760;
 	int Py = 720;

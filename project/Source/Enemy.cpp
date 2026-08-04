@@ -96,11 +96,19 @@ void Enemy::Draw()
 
 					if (statusmanager.Ex - Move >= 760 && AttackMotion && !Back) {
 						Move += MotionSpeed;
+						JustGuardJudge = true;
 					}
 					else if (AttackMotion){
+
+						if (!isAttack) {
+							isAttack = true;
+							JustGuardJudge = false;
+						}
+
 						Move -= MotionSpeed;
 						Back = true;
 						if (Move < 0) {
+							isAttack = false;
 							AttackMotion = false;
 							UIMotion = false;
 							RandomSelect = false;
