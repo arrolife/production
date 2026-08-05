@@ -4,6 +4,7 @@
 #include "Back.h"
 #include "StatusManager.h"
 #include "Screen.h"
+#include "../Library/GameObject.h"
 
 GameState gamestate;
 
@@ -25,6 +26,8 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+
+	Player* player = FindGameObject<Player>();
 
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
@@ -49,55 +52,18 @@ void PlayScene::Update()
 
 	case GameState::home:
 
-
-		AutoAddCount += 1;
-
-		if (AutoAddCount >= 10 * 60) {
-
-			switch (ReleaseLevel) {
-
-			case 1:
-				statusmanager.AddStatusPoint(1);
-				break;
-
-			case 2:
-				statusmanager.AddStatusPoint(1);
-				break;
-
-			case 3:
-				statusmanager.AddStatusPoint(2);
-				break;
-
-			case 4:
-				statusmanager.AddStatusPoint(25);
-				break;
-
-			case 5:
-				statusmanager.AddStatusPoint(250);
-				break;
-
-			}
-
-		}
-
-
 		if (CheckHitKey(KEY_INPUT_B)) {
 			isLevelSelect = true;
-		}
-
-		if (CheckHitKey(KEY_INPUT_T)) {
-			gamestate = GameState::training;
 		}
 
 		if (isLevelSelect) {
 			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 1;
+					SelectLevel = 3;
 
 					//仮
 					if (!StatusSet) {
 						statusmanager.SetEnemyStatus(SelectLevel);
-						statusmanager.Php = statusmanager.MaxPhp;
 						StatusSet = true;
 						isLevelSelect = false;
 					}
@@ -105,30 +71,7 @@ void PlayScene::Update()
 					gamestate = GameState::battle;
 				}
 			}
-			if (CheckHitKey(KEY_INPUT_2)) {
-				if (ReleaseLevel >= 2) {
-					SelectLevel = 2;
-					gamestate = GameState::battle;
-				}
-			}
-			if (CheckHitKey(KEY_INPUT_3)) {
-				if (ReleaseLevel >= 3) {
-					SelectLevel = 3;
-					gamestate = GameState::battle;
-				}
-			}
-			if (CheckHitKey(KEY_INPUT_4)) {
-				if (ReleaseLevel >= 4) {
-					SelectLevel = 4;
-					gamestate = GameState::battle;
-				}
-			}
-			if (CheckHitKey(KEY_INPUT_5)) {
-				if (ReleaseLevel >= 5) {
-					SelectLevel = 5;
-					gamestate = GameState::battle;
-				}
-			}
+			
 		}
 
 		break;
@@ -142,8 +85,13 @@ void PlayScene::Update()
 			isLevelSelect = false;
 		}*/
 
-		if (statusmanager.Php <= 0) {
+		if (player->Php <= 0) {
 			isWin = false;
+			gamestate = GameState::result;
+		}
+
+		if (statusmanager.Ehp <= 0) {
+			isWin = true;
 			gamestate = GameState::result;
 		}
 
@@ -153,29 +101,14 @@ void PlayScene::Update()
 
 		StatusSet = false;
 
-		if (CheckHitKey(KEY_INPUT_H)) {
-			gamestate = GameState::home;
+		if (isWin) {
+			SelectLevel += 1;
+			statusmanager.SetEnemyStatus(SelectLevel);
+			gamestate = GameState::battle;
 		}
 
-		break;
-
-	case GameState::training:
-
 		if (CheckHitKey(KEY_INPUT_H)) {
 			gamestate = GameState::home;
-		}
-
-		if (statusmanager.StatusPoint >= statusmanager.NextNeedPoint) {
-
-			if (CheckHitKey(KEY_INPUT_1)) {
-				statusmanager.AddMaxPhp();
-			}
-			if (CheckHitKey(KEY_INPUT_2)) {
-				statusmanager.AddPAttack();
-			}
-			if (CheckHitKey(KEY_INPUT_3)) {
-				statusmanager.SubtractPAttackWaiting();
-			}
 		}
 
 		break;
@@ -217,7 +150,6 @@ void PlayScene::Draw()
 	DrawFormatString(100, 450, GetColor(0, 0, 0), "StatusPoint = %d", statusmanager.StatusPoint);
 	DrawFormatString(100, 350, GetColor(0, 0, 0), "ReleaseLevel = %d", ReleaseLevel);
 	DrawFormatString(100, 550, GetColor(0, 0, 0), "NextNeedPoint = %d", statusmanager.NextNeedPoint);
-	DrawFormatString(100, 600, GetColor(0, 0, 0), "MaxPhp = %d", statusmanager.MaxPhp);
 	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAttack);
 	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAttackWaiting);
 

@@ -3,14 +3,13 @@
 #include "PlayScene.h"
 #include "../Library/GameObject.h"
 #include "Enemy.h"
+#include <math.h>
 
 Player::Player()
 {
 	hImage[0] = LoadGraph("data/image/player/player_1.png");
 	hImage[1] = LoadGraph("data/image/player/player_2.png");
 	hImage[2] = LoadGraph("data/image/player/player_3.png");
-	hImage[3] = LoadGraph("data/image/UI/shield_iron.png");
-	hImage[4] = LoadGraph("data/image/UI/shield_blue.png");
 }
 
 Player::~Player()
@@ -20,74 +19,86 @@ Player::~Player()
 void Player::Update()
 {
 
+	angleRad = angleDeg * DX_PI_F / 180.0;
+
 	Enemy* enemy = FindGameObject<Enemy>();
 
 
 	switch (gamestate) {
 
 	case GameState::home:
+
+		Php = MaxPhp;
+
 		break;
 
 	case GameState::battle:
-
-		isDead = false;
-
-		if (!isDead) {
-
-			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick && !isGuard)
-			{
-				AttackCount += 1;
-				if (AttackCount >= 10) {
-					AttackCount + 0;
-					AttackMotion = true;
-				}
-				isClick = true;
-			}
-			//AttackCount += 1;
-			if (AttackCount >= statusmanager.PAttackWaiting) {
+		
+		if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick && !AttackMotion && !DodgedMotion)
+		{
+			AttackCount += 1;
+			if (AttackCount >= 10) {
 				AttackCount = 0;
-				statusmanager.Attack(1);
+				AttackMotion = true;
+			}
+			isClick = true;
+		}
+
+		if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0 && !isClick && !AttackMotion && !DodgedMotion && !CoolTime) {
+			DodgedMotion = true;
+			AttackCount = 0;
+			isClick = true;
+		}
+
+	    if (GetMouseInput() == 0) {
+		    isClick = false;
+	    }
+
+
+		if (DodgedMotion) {
+			angleDeg += 25.0;
+		}
+
+		if (angleDeg >= 360) {
+			angleDeg = 0;
+			DodgedMotion = false;
+			CoolTime = true;
+		}
+
+		if (CoolTime) {
+			CoolCount -= 1;
+
+			if (CoolCount <= 0) {
+				CoolTime = false;
+				CoolCount = 20;
+			}
+		}
+
+		if (enemy->isAttack) {
+
+			if (!DodgedMotion) {
+				Php -= 1;
 			}
 
-			if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0 && !isClick) {
-				
-				if (enemy->JustGuardJudge && !isGuard) {
-					Just = true;
-				}
-				isGuard = true;
-			}
-			if ((GetMouseInput() & MOUSE_INPUT_RIGHT) == 0) {
-				isGuard = false;
-				JustGuard = false;
-				Just = false;
-			}
-
 		}
-		if (GetMouseInput() == 0) {
-			isClick = false;
-		}
-
-
-		if (isGuard && enemy->JustGuardJudge && Just) {
-			
-			JustGuard = true;
-			//ダメージのフラグを書く
-			//処理の終わり近くにダメージがどうなったかの処理を書く
-		}
-
-
-		if (statusmanager.Php <= 0 && !isDead) {
-			isDead = true;
-		}
-
-		
-
-		break;
-
+	
+	    break;
+	
 	case GameState::result:
-		
+
 		AttackCount = 0;
-		break;
+		AttackMotion = false;
+		isClick = false;
+		DodgedMotion = false;
+		angleDeg = 0;
+		CoolTime = false;
+		CoolCount = 20;
+		Php = MaxPhp;
+		Move = 0;
+		isAttack = false;
+		Back = false;
+
+	    break;
 
 	}
 
@@ -104,23 +115,42 @@ void Player::Draw()
 		break;
 
 	case GameState::battle:
-		if (!isDead) {
-			DrawExtendGraph(Px - PWidth, Py, Px, Py + PHeight, hImage[0], true);
+
+
+		for (int i = 0; i < Php; i++) {
+			DrawBox(i * 128, 0, (i + 1) * 128, 128, GetColor(255, 255, 255), true);
 		}
 
-		if (isGuard) {
-			DrawExtendGraph(0 + 690, 0 + 820, 100 + 690, 110 + 820, hImage[3], true);
+
+		if (AttackMotion && Move < 400 && !Back) {
+
+			Move += MotionSpeed;
 		}
-		if (isGuard && JustGuard) {
-			DrawExtendGraph(0 + 690, 0 + 820, 100 + 690, 110 + 820, hImage[4], true);
+		else if (AttackMotion) {
+
+			isAttack = false;
+
+			if (!isAttack && !Back) {
+				isAttack = true;
+			}
+
+			Move -= MotionSpeed;
+			Back = true;
+
+			if (Move < 0) {
+				
+				AttackMotion = false;
+				Back = false;
+			}
+
 		}
+
+		DrawRotaGraph(Px - 100 + Move, Py + 105, 0.4, angleRad, hImage[0], true);
 
 		break;
 
 	case GameState::result:
-		if (!isDead) {
-			DrawExtendGraph(0, 0, 128, 128, hImage[0], true);
-		}
+
 		break;
 
 	}

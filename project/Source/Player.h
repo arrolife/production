@@ -1,5 +1,6 @@
 #pragma once
 #include "../Library/GameObject.h"
+#include <math.h>
 
 class Player : public GameObject {
 
@@ -9,19 +10,26 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	bool isAttack = false;
+	int Php = 3;
 
 private:
 
+	int MaxPhp = 3;
+	
 	int hImage[5];
 	int AttackCount = 0;
 	bool isDead = false;
 	bool isClick = false;
-	bool isAttack = false;
 
 
-	bool isGuard = false;
-	bool JustGuard = false;
-	bool Just = false;
+	int Move = 0;
+	int MotionSpeed = 80;
+	bool Back = false;
+
+	bool DodgedMotion = false;
+	int CoolCount = 20;
+	bool CoolTime = false;
 
 	bool AttackMotion = false;
 	
@@ -29,5 +37,8 @@ private:
 	int Py = 720;
 	int PWidth = 100 * 2;
 	int PHeight = 105 * 2;
+
+	double angleDeg = 0.0;
+	double angleRad = angleDeg * DX_PI_F / 180.0;
 
 };
