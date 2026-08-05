@@ -14,6 +14,9 @@ Enemy::Enemy()
 	hImage[0] = LoadGraph("data/image/enemy/slime_green.png");
 	hImage[1] = LoadGraph("data/image/enemy/slime_red.png");
 	hImage[2] = LoadGraph("data/image/enemy/slime_big_green.png");
+	hImage[3] = LoadGraph("data/image/enemy/slime_big_red.png");
+	hImage[4] = LoadGraph("data/image/enemy/slime_big_purple.png");
+
 }
 
 Enemy::~Enemy()
@@ -92,6 +95,8 @@ void Enemy::Draw()
 		case 1:
 		case 2:
 		case 3:
+		case 4:
+		case 5:
 			//7:5 = 140:100
 			//*20 (statusmanager.UISize01 / 2)
 

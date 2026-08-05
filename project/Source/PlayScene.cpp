@@ -59,7 +59,7 @@ void PlayScene::Update()
 		if (isLevelSelect) {
 			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 3;
+					SelectLevel = 5;
 
 					//仮
 					if (!StatusSet) {

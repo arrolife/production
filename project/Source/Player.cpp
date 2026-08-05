@@ -46,7 +46,6 @@ void Player::Update()
 
 		if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0 && !isClick && !AttackMotion && !DodgedMotion && !CoolTime) {
 			DodgedMotion = true;
-			AttackCount = 0;
 			isClick = true;
 		}
 

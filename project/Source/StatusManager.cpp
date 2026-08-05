@@ -86,7 +86,7 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 4:
 
-		MaxEhp = 10;
+		MaxEhp = 13;
 		AttackSpeed = 1.5f;
 		EAttackWaitMin = 160;
 		EAttackWaitMax = 270;
@@ -103,8 +103,18 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 5:
 
-		MaxEhp = 100000;
-		//EAttack = 10000;
+		MaxEhp = 15;
+		AttackSpeed = 2.3f;
+		EAttackWaitMin = 10;
+		EAttackWaitMax = 180;
+
+		Ex = 1160;
+		Ey = 800;
+		EWidth = 140;
+		EHeight = 130;
+		UIx01 = 1080.0f; // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 470.0f;
+		UISize01 = 300.0f;
 		
 		break;
 
