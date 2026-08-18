@@ -63,7 +63,30 @@ void Enemy::Update()
 
 		if (!RandomSelect) {
 			TimeCount = 0;
+			int num = GetRand(statusmanager.AttackPattern[0] + statusmanager.AttackPattern[1] + statusmanager.AttackPattern[2] - 1);
+			if (num <= statusmanager.AttackPattern[0] - 1) {
+				AttackType = 0;
+			}
+			else if (num <= (statusmanager.AttackPattern[0] + statusmanager.AttackPattern[1] - 1)) {
+				AttackType = 1;
+			}
+			else if (num <= (statusmanager.AttackPattern[0] + statusmanager.AttackPattern[1] + statusmanager.AttackPattern[2] - 1)) {
+				AttackType = 2;
+			}
+
 			AttackWait = GetRand(statusmanager.EAttackWaitMax - statusmanager.EAttackWaitMin) + statusmanager.EAttackWaitMin;
+
+			switch (AttackType) {
+			case 0:
+				AttackSpeed = statusmanager.AttackSpeed;
+				break;
+			case 1:
+				AttackSpeed = statusmanager.AttackSpeed * 2;
+				break;
+			case 2:
+				AttackSpeed = statusmanager.AttackSpeed / 2;
+			}
+
 			RandomSelect = true;
 		}
 		else {
@@ -83,6 +106,7 @@ void Enemy::Update()
 
 	case GameState::result:
 		
+		AttackSpeed = 0;
 		TimeCount = 0;
 		AttackWait = 0;
 		RandomSelect = false;
@@ -92,6 +116,7 @@ void Enemy::Update()
 		UISizeChange = 0;
 		isAttack = false;
 		Back = false;
+		AttackType = 0;
 		
 		break;
 
@@ -118,14 +143,6 @@ void Enemy::Draw()
 			DrawExtendGraph(i * 32, 128, (i + 1) * 32, 128 + 32, UIImage[4], true);
 		}
 
-		switch (statusmanager.ELevel) {
-
-		case 25:
-		case 26:
-
-			break;
-
-		default:
 			//7:5 = 140:100
 			//*20 (statusmanager.UISize01 / 2)
 
@@ -136,7 +153,7 @@ void Enemy::Draw()
 			if (UIMotion) {
 				if (!AttackMotion) {
 					if (UISizeChange < (statusmanager.UISize01 / 2)) {
-						UISizeChange += statusmanager.AttackSpeed;
+						UISizeChange += AttackSpeed;
 					}
 					else if (UISizeChange >= (statusmanager.UISize01 / 2)) {
 						UISizeChange = statusmanager.UISize01 / 2;
@@ -173,12 +190,9 @@ void Enemy::Draw()
 					statusmanager.UIy01 + (statusmanager.UISize01 / 2) - UISizeChange,
 					statusmanager.UIx01 + statusmanager.UISize01 - (statusmanager.UISize01 / 2) + UISizeChange,
 					statusmanager.UIy01 + statusmanager.UISize01 - (statusmanager.UISize01 / 2) + UISizeChange,
-					UIImage[1], true);
+					UIImage[AttackType + 1], true);
 
 			}
-
-			break;
-		}
 
 		break;
 

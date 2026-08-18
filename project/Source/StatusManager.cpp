@@ -198,10 +198,13 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 11:
 
-		MaxEhp = 30;
-		AttackSpeed = 2.5f;
-		EAttackWaitMin = 5;
-		EAttackWaitMax = 150;
+		MaxEhp = 25;
+		AttackSpeed = 1.6f;
+		EAttackWaitMin = 90;
+		EAttackWaitMax = 350;
+		AttackPattern[0] = 9;  //割合的な感じ　判定数9  0～8なら
+		AttackPattern[1] = 1;  //              判定数1  9なら
+		AttackPattern[2] = 0;  //              判定数0  なし
 
 		Ex = 1160;
 		Ey = 720  - 50;
@@ -210,6 +213,272 @@ void StatusManager::SetEnemyStatus(int Level)
 		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
 		UIy01 = 420.0f - 50;
 		
+		break;
+
+	case 12:
+
+		MaxEhp = 27;
+		AttackSpeed = 1.8f;
+		EAttackWaitMin = 70;
+		EAttackWaitMax = 300;
+		AttackPattern[0] = 17;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 720  - 50;
+		EWidth = 210;
+		EHeight = 210 + 50;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 420.0f - 50;
+		
+		break;
+
+	case 13:
+
+		MaxEhp = 35;
+		AttackSpeed = 2.1f;
+		EAttackWaitMin = 60;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 4;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 720  - 50;
+		EWidth = 210;
+		EHeight = 210 + 50;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 420.0f - 50;
+		
+		break;
+
+	case 14:
+
+		MaxEhp = 30;
+		AttackSpeed = 2.3f;
+		EAttackWaitMin = 50;
+		EAttackWaitMax = 220;
+		AttackPattern[0] = 3;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 720  - 50;
+		EWidth = 210;
+		EHeight = 210 + 50;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 420.0f - 50;
+		
+		break;
+
+	case 15:
+
+		MaxEhp = 25;
+		AttackSpeed = 2.7f;
+		EAttackWaitMin = 5;
+		EAttackWaitMax = 100;
+		AttackPattern[0] = 7;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 720  - 50;
+		EWidth = 210;
+		EHeight = 210 + 50;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 420.0f - 50;
+		
+		break;
+
+	case 16:
+
+		MaxEhp = 20;
+		AttackSpeed = 1.8f;
+		EAttackWaitMin = 100;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 3;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 720  - 50;
+		EWidth = 210;
+		EHeight = 210 + 50;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 420.0f - 50;
+		
+		break;
+
+	case 17:
+
+		MaxEhp = 25;
+		AttackSpeed = 2.0f;
+		EAttackWaitMin = 80;
+		EAttackWaitMax = 200;
+		AttackPattern[0] = 3;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 650;
+		EWidth = 240;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 350.0f;
+		
+		break;
+
+	case 18:
+
+		MaxEhp = 30;
+		AttackSpeed = 2.0f;
+		EAttackWaitMin = 100;
+		EAttackWaitMax = 300;
+		AttackPattern[0] = 7;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 650;
+		EWidth = 240;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 350.0f;
+		
+		break;
+
+	case 19:
+
+		MaxEhp = 40;
+		AttackSpeed = 1.5f;
+		EAttackWaitMin = 50;
+		EAttackWaitMax = 300;
+		AttackPattern[0] = 7;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 670;
+		EWidth = 240;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 370.0f;
+		
+		break;
+
+	case 20:
+
+		MaxEhp = 35;
+		AttackSpeed = 2.8f;
+		EAttackWaitMin = 5;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 3;
+		AttackPattern[1] = 2;
+		AttackPattern[2] = 0;
+
+		Ex = 1160;
+		Ey = 630;
+		EWidth = 450;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 330.0f;
+		
+		break;
+
+	case 21:
+
+		MaxEhp = 30;
+		AttackSpeed = 2.3f;
+		EAttackWaitMin = 50;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 1;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 1;
+
+		Ex = 1160;
+		Ey = 630;
+		EWidth = 450;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 330.0f;
+		
+		break;
+
+	case 22:
+
+		MaxEhp = 35;
+		AttackSpeed = 2.4f;
+		EAttackWaitMin = 40;
+		EAttackWaitMax = 200;
+		AttackPattern[0] = 1;
+		AttackPattern[1] = 2;
+		AttackPattern[2] = 2;
+
+		Ex = 1160;
+		Ey = 650;
+		EWidth = 250;
+		EHeight = 280;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 350.0f;
+		
+		break;
+
+	case 23:
+
+		MaxEhp = 40;
+		AttackSpeed = 2.5f;
+		EAttackWaitMin = 30;
+		EAttackWaitMax = 180;
+		AttackPattern[0] = 2;
+		AttackPattern[1] = 1;
+		AttackPattern[2] = 4;
+
+		Ex = 1160;
+		Ey = 650;
+		EWidth = 250;
+		EHeight = 280;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 350.0f;
+		
+		break;
+
+	case 24:
+
+		MaxEhp = 30;
+		AttackSpeed = 2.6f;
+		EAttackWaitMin = 20;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 5;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 1;
+
+		Ex = 1160;
+		Ey = 630;
+		EWidth = 450;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 330.0f;
+
+		break;
+
+	case 25:
+
+		MaxEhp = 30;
+		AttackSpeed = 2.6f;
+		EAttackWaitMin = 20;
+		EAttackWaitMax = 250;
+		AttackPattern[0] = 5;
+		AttackPattern[1] = 3;
+		AttackPattern[2] = 1;
+
+		Ex = 1160;
+		Ey = 630;
+		EWidth = 450;
+		EHeight = 260;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 330.0f;
+
 		break;
 
 	}

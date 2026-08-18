@@ -16,9 +16,12 @@ private:
 
 	int hImage[25];
 	int UIImage[5];
+
+	int AttackType = 0;
 	
 	bool AttackMotion = false;
 	float MotionCount = 4.0f;
+	float AttackSpeed = 0;
 
 	float UISizeChange = 0;
 	int Move = 0;

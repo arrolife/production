@@ -57,9 +57,8 @@ void PlayScene::Update()
 		}
 
 		if (isLevelSelect) {
-			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 10;
+					SelectLevel = 25;
 
 					//仮
 					if (!StatusSet) {
@@ -70,8 +69,6 @@ void PlayScene::Update()
 
 					gamestate = GameState::battle;
 				}
-			}
-			
 		}
 
 		break;
@@ -103,7 +100,7 @@ void PlayScene::Update()
 
 		if (isWin) {
 			SelectLevel += 1;
-			if (statusmanager.ELevel == 10 || statusmanager.ELevel == 20) {
+			if (statusmanager.ELevel % 5 == 0) {
 				player->MaxPhp += 1;
 				player->PlayerLevel += 1;
 			}
