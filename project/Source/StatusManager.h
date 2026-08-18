@@ -13,6 +13,7 @@ public:
 	static int PAttack;
 	static int StatusPoint;
 	static int NextNeedPoint;
+	static int AttackPattern[3];
 
 	static int Ehp;
 	static int MaxEhp;

@@ -10,6 +10,9 @@ Player::Player()
 	hImage[0] = LoadGraph("data/image/player/player_1.png");
 	hImage[1] = LoadGraph("data/image/player/player_2.png");
 	hImage[2] = LoadGraph("data/image/player/player_3.png");
+
+	UIImage[0] = LoadGraph("data/image/UI/heart_red.png");
+
 }
 
 Player::~Player()
@@ -37,7 +40,7 @@ void Player::Update()
 		if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick && !AttackMotion && !DodgedMotion)
 		{
 			AttackCount += 1;
-			if (AttackCount >= 10) {
+			if (AttackCount >= 7) {
 				AttackCount = 0;
 				AttackMotion = true;
 			}
@@ -55,10 +58,10 @@ void Player::Update()
 
 
 		if (DodgedMotion) {
-			angleDeg += 25.0;
+			angleDeg -= 25.0;
 		}
 
-		if (angleDeg >= 360) {
+		if (angleDeg <= -360) {
 			angleDeg = 0;
 			DodgedMotion = false;
 			CoolTime = true;
@@ -92,7 +95,7 @@ void Player::Update()
 		angleDeg = 0;
 		CoolTime = false;
 		CoolCount = 20;
-		Php = MaxPhp;
+		//Php = MaxPhp;
 		Move = 0;
 		isAttack = false;
 		Back = false;
@@ -117,7 +120,8 @@ void Player::Draw()
 
 
 		for (int i = 0; i < Php; i++) {
-			DrawBox(i * 128, 0, (i + 1) * 128, 128, GetColor(255, 255, 255), true);
+			//DrawBox(i * 128, 0, (i + 1) * 128, 128, GetColor(255, 255, 255), true);
+			DrawExtendGraph(i * 128, 0, (i + 1) * 128, 128, UIImage[0], true);
 		}
 
 
@@ -144,7 +148,7 @@ void Player::Draw()
 
 		}
 
-		DrawRotaGraph(Px - 100 + Move, Py + 105, 0.4, angleRad, hImage[0], true);
+		DrawRotaGraph(Px - 100 + Move, Py + 105, 0.4, angleRad, hImage[PlayerLevel], true);
 
 		break;
 

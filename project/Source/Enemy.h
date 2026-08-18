@@ -14,8 +14,8 @@ public:
 
 private:
 
-	int hImage[12];
-	int UIImage[3];
+	int hImage[25];
+	int UIImage[5];
 	
 	bool AttackMotion = false;
 	float MotionCount = 4.0f;

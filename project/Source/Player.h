@@ -12,12 +12,14 @@ public:
 
 	bool isAttack = false;
 	int Php = 3;
+	int MaxPhp = 3;
+	int PlayerLevel = 0;
 
 private:
 
-	int MaxPhp = 3;
 	
 	int hImage[5];
+	int UIImage[1];
 	int AttackCount = 0;
 	bool isDead = false;
 	bool isClick = false;

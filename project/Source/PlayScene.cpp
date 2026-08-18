@@ -59,7 +59,7 @@ void PlayScene::Update()
 		if (isLevelSelect) {
 			if (CheckHitKey(KEY_INPUT_1)) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 5;
+					SelectLevel = 10;
 
 					//仮
 					if (!StatusSet) {
@@ -103,6 +103,11 @@ void PlayScene::Update()
 
 		if (isWin) {
 			SelectLevel += 1;
+			if (statusmanager.ELevel == 10 || statusmanager.ELevel == 20) {
+				player->MaxPhp += 1;
+				player->PlayerLevel += 1;
+			}
+			player->Php = player->MaxPhp;
 			statusmanager.SetEnemyStatus(SelectLevel);
 			gamestate = GameState::battle;
 		}
@@ -114,7 +119,6 @@ void PlayScene::Update()
 		break;
 
 	}
-
 
 	if (CheckHitKey(KEY_INPUT_0)) {
 		SceneManager::ChangeScene("TITLE");

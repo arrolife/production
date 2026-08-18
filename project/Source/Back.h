@@ -11,6 +11,6 @@ public:
 
 private:
 
-	int hImage = 0;
-
+	int hImage[5];
+	int num = 0;
 };
