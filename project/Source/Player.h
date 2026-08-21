@@ -14,12 +14,15 @@ public:
 	int Php = 3;
 	int MaxPhp = 3;
 	int PlayerLevel = 0;
+	int MaxAttackCount = 7;
 
 private:
 
 	
 	int hImage[5];
 	int UIImage[1];
+	int CircleImage[17];
+	int CircleNumber = 0;
 	int AttackCount = 0;
 	bool isDead = false;
 	bool isClick = false;

@@ -58,7 +58,7 @@ void PlayScene::Update()
 
 		if (isLevelSelect) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 25;
+					SelectLevel = 1;
 
 					//仮
 					if (!StatusSet) {

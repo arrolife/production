@@ -13,6 +13,24 @@ Player::Player()
 
 	UIImage[0] = LoadGraph("data/image/UI/heart_red.png");
 
+	CircleImage[0] = LoadGraph("data/image/UI/circle");
+	CircleImage[1] = LoadGraph("data/image/UI/circlefull");
+	CircleImage[2] = LoadGraph("data/image/UI/circle7-1");
+	CircleImage[3] = LoadGraph("data/image/UI/circle7-2");
+	CircleImage[4] = LoadGraph("data/image/UI/circle7-3");
+	CircleImage[5] = LoadGraph("data/image/UI/circle7-4");
+	CircleImage[6] = LoadGraph("data/image/UI/circle7-5");
+	CircleImage[7] = LoadGraph("data/image/UI/circle7-6");
+	CircleImage[8] = LoadGraph("data/image/UI/circle6-1");
+	CircleImage[9] = LoadGraph("data/image/UI/circle6-2");
+	CircleImage[10] = LoadGraph("data/image/UI/circle6-3");
+	CircleImage[11] = LoadGraph("data/image/UI/circle6-4");
+	CircleImage[12] = LoadGraph("data/image/UI/circle6-5");
+	CircleImage[13] = LoadGraph("data/image/UI/circle5-1");
+	CircleImage[14] = LoadGraph("data/image/UI/circle5-2");
+	CircleImage[15] = LoadGraph("data/image/UI/circle5-3");
+	CircleImage[16] = LoadGraph("data/image/UI/circle5-4");
+
 }
 
 Player::~Player()
@@ -40,8 +58,8 @@ void Player::Update()
 		if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 && !isClick && !AttackMotion && !DodgedMotion)
 		{
 			AttackCount += 1;
-			if (AttackCount >= 7) {
-				AttackCount = 0;
+			if (AttackCount >= MaxAttackCount) {
+				
 				AttackMotion = true;
 			}
 			isClick = true;
@@ -111,6 +129,55 @@ void Player::Update()
 void Player::Draw()
 {
 
+	switch (MaxAttackCount) {
+
+	case 7:
+
+		if (AttackCount == 0) {
+			CircleNumber = 0;
+		}
+		else if (AttackCount == MaxAttackCount) {
+			CircleNumber = 2;
+		}
+		else {
+			CircleNumber = AttackCount + 1;
+		}
+
+		break;
+
+	case 6:
+
+		if (AttackCount == 0) {
+			CircleNumber = 0;
+		}
+		else if (AttackCount == MaxAttackCount) {
+			CircleNumber = 2;
+		}
+		else {
+			CircleNumber = AttackCount + 7;
+		}
+
+		break;
+
+	case 5:
+
+		if (AttackCount == 0) {
+			CircleNumber = 0;
+		}
+		else if (AttackCount == MaxAttackCount) {
+			CircleNumber = 2;
+		}
+		else {
+			CircleNumber = AttackCount + 12;
+		}
+
+		break;
+
+	}
+
+	DrawExtendGraph(500, 500, 1000, 1000, CircleImage[CircleNumber], true);
+
+
 	switch (gamestate) {
 
 	case GameState::home:
@@ -144,11 +211,33 @@ void Player::Draw()
 				
 				AttackMotion = false;
 				Back = false;
+				AttackCount = 0;
 			}
 
 		}
 
-		DrawRotaGraph(Px - 100 + Move, Py + 105, 0.4, angleRad, hImage[PlayerLevel], true);
+		int num = 0;
+
+		switch (PlayerLevel) {
+
+		case 0:
+		case 1:
+			num = 0;
+			break;
+
+		case 2:
+		case 3:
+			num = 1;
+			break;
+
+		default:
+			num = 2;
+			break;
+
+		}
+
+
+		DrawRotaGraph(Px - 100 + Move, Py + 105, 0.4, angleRad, hImage[num], true);
 
 		break;
 
