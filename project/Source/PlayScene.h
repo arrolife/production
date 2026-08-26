@@ -30,9 +30,9 @@ private:
 
 enum class GameState {
 	home,
+	direction,
 	battle,
 	result,
-	training,
 	clear
 };
 

@@ -101,9 +101,13 @@ void PlayScene::Update()
 		if (isWin) {
 			SelectLevel += 1;
 			if (statusmanager.ELevel % 5 == 0) {
-				player->MaxPhp += 1;
 				player->PlayerLevel += 1;
 			}
+
+			if (statusmanager.ELevel % 10 == 0) {
+				player->MaxPhp += 1;
+			}
+
 			player->Php = player->MaxPhp;
 			statusmanager.SetEnemyStatus(SelectLevel);
 			gamestate = GameState::battle;
@@ -136,10 +140,6 @@ void PlayScene::Draw()
 
 	case GameState::result:
 		DrawString(100, 500, "gamestate = result", GetColor(0, 0, 0));
-		break;
-
-	case GameState::training:
-		DrawString(100, 500, "gamestate = training", GetColor(0, 0, 0));
 		break;
 
 	}

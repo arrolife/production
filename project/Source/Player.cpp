@@ -13,23 +13,23 @@ Player::Player()
 
 	UIImage[0] = LoadGraph("data/image/UI/heart_red.png");
 
-	CircleImage[0] = LoadGraph("data/image/UI/circle");
-	CircleImage[1] = LoadGraph("data/image/UI/circlefull");
-	CircleImage[2] = LoadGraph("data/image/UI/circle7-1");
-	CircleImage[3] = LoadGraph("data/image/UI/circle7-2");
-	CircleImage[4] = LoadGraph("data/image/UI/circle7-3");
-	CircleImage[5] = LoadGraph("data/image/UI/circle7-4");
-	CircleImage[6] = LoadGraph("data/image/UI/circle7-5");
-	CircleImage[7] = LoadGraph("data/image/UI/circle7-6");
-	CircleImage[8] = LoadGraph("data/image/UI/circle6-1");
-	CircleImage[9] = LoadGraph("data/image/UI/circle6-2");
-	CircleImage[10] = LoadGraph("data/image/UI/circle6-3");
-	CircleImage[11] = LoadGraph("data/image/UI/circle6-4");
-	CircleImage[12] = LoadGraph("data/image/UI/circle6-5");
-	CircleImage[13] = LoadGraph("data/image/UI/circle5-1");
-	CircleImage[14] = LoadGraph("data/image/UI/circle5-2");
-	CircleImage[15] = LoadGraph("data/image/UI/circle5-3");
-	CircleImage[16] = LoadGraph("data/image/UI/circle5-4");
+	CircleImage[0] = LoadGraph("data/image/UI/circle.png");
+	CircleImage[1] = LoadGraph("data/image/UI/circlefull.png");
+	CircleImage[2] = LoadGraph("data/image/UI/circle7-1.png");
+	CircleImage[3] = LoadGraph("data/image/UI/circle7-2.png");
+	CircleImage[4] = LoadGraph("data/image/UI/circle7-3.png");
+	CircleImage[5] = LoadGraph("data/image/UI/circle7-4.png");
+	CircleImage[6] = LoadGraph("data/image/UI/circle7-5.png");
+	CircleImage[7] = LoadGraph("data/image/UI/circle7-6.png");
+	CircleImage[8] = LoadGraph("data/image/UI/circle6-1.png");
+	CircleImage[9] = LoadGraph("data/image/UI/circle6-2.png");
+	CircleImage[10] = LoadGraph("data/image/UI/circle6-3.png");
+	CircleImage[11] = LoadGraph("data/image/UI/circle6-4.png");
+	CircleImage[12] = LoadGraph("data/image/UI/circle6-5.png");
+	CircleImage[13] = LoadGraph("data/image/UI/circle5-1.png");
+	CircleImage[14] = LoadGraph("data/image/UI/circle5-2.png");
+	CircleImage[15] = LoadGraph("data/image/UI/circle5-3.png");
+	CircleImage[16] = LoadGraph("data/image/UI/circle5-4.png");
 
 }
 
@@ -137,7 +137,7 @@ void Player::Draw()
 			CircleNumber = 0;
 		}
 		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 2;
+			CircleNumber = 1;
 		}
 		else {
 			CircleNumber = AttackCount + 1;
@@ -151,7 +151,7 @@ void Player::Draw()
 			CircleNumber = 0;
 		}
 		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 2;
+			CircleNumber = 1;
 		}
 		else {
 			CircleNumber = AttackCount + 7;
@@ -165,7 +165,7 @@ void Player::Draw()
 			CircleNumber = 0;
 		}
 		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 2;
+			CircleNumber = 1;
 		}
 		else {
 			CircleNumber = AttackCount + 12;
@@ -175,8 +175,9 @@ void Player::Draw()
 
 	}
 
-	DrawExtendGraph(500, 500, 1000, 1000, CircleImage[CircleNumber], true);
+	DrawExtendGraph(590, 530, 730, 670, CircleImage[CircleNumber], true);
 
+	int num = 0; //仮
 
 	switch (gamestate) {
 
@@ -208,7 +209,7 @@ void Player::Draw()
 			Back = true;
 
 			if (Move < 0) {
-				
+				Move = 0;
 				AttackMotion = false;
 				Back = false;
 				AttackCount = 0;
@@ -216,7 +217,7 @@ void Player::Draw()
 
 		}
 
-		int num = 0;
+		
 
 		switch (PlayerLevel) {
 
