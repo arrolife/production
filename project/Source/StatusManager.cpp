@@ -464,20 +464,43 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 25:
 
-		MaxEhp = 30;
-		AttackSpeed = 2.6f;
-		EAttackWaitMin = 20;
-		EAttackWaitMax = 250;
-		AttackPattern[0] = 5;
+		//大きさのみしか値いじってない
+
+		MaxEhp = 40;
+		AttackSpeed = 3.0f;
+		EAttackWaitMin = 10;
+		EAttackWaitMax = 200;
+		AttackPattern[0] = 4;
 		AttackPattern[1] = 3;
+		AttackPattern[2] = 2;
+
+		Ex = 1160;
+		Ey = 530;
+		EWidth = 400;
+		EHeight = 400;
+		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
+		UIy01 = 220.0f;
+
+		break;
+
+	case 26:
+
+		//大きさのみしか値いじってない
+
+		MaxEhp = 50;
+		AttackSpeed = 4.0f;
+		EAttackWaitMin = 1;
+		EAttackWaitMax = 150;
+		AttackPattern[0] = 1;
+		AttackPattern[1] = 1;
 		AttackPattern[2] = 1;
 
 		Ex = 1160;
-		Ey = 630;
-		EWidth = 450;
-		EHeight = 260;
+		Ey = 300;
+		EWidth = 600;
+		EHeight = 630;
 		UIx01 = Ex - ((UISize01 - EWidth) / 2); // Ex - ((UISize - EWidth) / 2)
-		UIy01 = 330.0f;
+		UIy01 = 70.0f;
 
 		break;
 

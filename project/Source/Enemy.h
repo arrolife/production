@@ -14,7 +14,7 @@ public:
 
 private:
 
-	int hImage[25];
+	int hImage[26];
 	int UIImage[5];
 
 	int AttackType = 0;

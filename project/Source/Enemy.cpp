@@ -2,7 +2,7 @@
 #include "StatusManager.h"
 #include "PlayScene.h"
 #include "Player.h"
-
+#include "Screen.h"
 
 Enemy::Enemy()
 {
@@ -42,6 +42,7 @@ Enemy::Enemy()
 	hImage[22] = LoadGraph("data/image/enemy/vampire.png");
 	hImage[23] = LoadGraph("data/image/enemy/angel_black.png");
 	hImage[24] = LoadGraph("data/image/enemy/demonking_01.png");
+	hImage[25] = LoadGraph("data/image/enemy/demonking_02.png");
 
 }
 
@@ -139,8 +140,19 @@ void Enemy::Draw()
 	case GameState::battle:
 
 		for (int i = 0; i < statusmanager.Ehp; i++) {
-			//DrawBox(i * 32, 128, (i + 1) * 32, 128 + 32, GetColor(0, 0, 0), true);
-			DrawExtendGraph(i * 32, 128, (i + 1) * 32, 128 + 32, UIImage[4], true);
+
+			
+			int col = i % 15;
+			int row = i / 15;
+
+			int HeartSize = 48;
+
+			int x = (Screen::WIDTH / 2) + (col * HeartSize) + 110;
+			int y = row * HeartSize;
+
+			DrawExtendGraph(x, y, x + HeartSize, y + HeartSize, UIImage[4], true);
+
+			
 		}
 
 			//7:5 = 140:100

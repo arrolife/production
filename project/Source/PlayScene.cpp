@@ -14,6 +14,12 @@ PlayScene::PlayScene()
 	hImage[0] = LoadGraph("data/image/UI/mouse.png");
 	hImage[1] = LoadGraph("data/image/UI/mouse_leftclick.png");
 	hImage[2] = LoadGraph("data/image/UI/mouse_rightclick.png");
+	hImage[3] = LoadGraph("data/image/UI/map.png");
+	hImage[4] = LoadGraph("data/image/UI/map_1.png");
+	hImage[5] = LoadGraph("data/image/UI/map_2.png");
+	hImage[6] = LoadGraph("data/image/UI/map_3.png");
+	hImage[7] = LoadGraph("data/image/UI/map_4.png");
+	hImage[8] = LoadGraph("data/image/UI/map_5.png");
 
 	new Back();
 	new Player();
@@ -102,10 +108,11 @@ void PlayScene::Update()
 			SelectLevel += 1;
 			if (statusmanager.ELevel % 5 == 0) {
 				player->PlayerLevel += 1;
+				player->MaxPhp += 1;
 			}
 
-			if (statusmanager.ELevel % 10 == 0) {
-				player->MaxPhp += 1;
+			if (statusmanager.ELevel % 10 == 0 && player->MaxAttackCount != 5) {
+				player->MaxAttackCount -= 1;
 			}
 
 			player->Php = player->MaxPhp;
@@ -128,34 +135,17 @@ void PlayScene::Update()
 
 void PlayScene::Draw()
 {
-	switch (gamestate) {
-
-	case GameState::home:
-		DrawString(100, 500, "gamestate = home", GetColor(0, 0, 0));
-		break;
-
-	case GameState::battle:
-		DrawString(100, 500, "gamestate = battle", GetColor(0, 0, 0));
-		break;
-
-	case GameState::result:
-		DrawString(100, 500, "gamestate = result", GetColor(0, 0, 0));
-		break;
-
-	}
-
-
-	DrawString(0, 0, "PLAY SCENE", GetColor(0, 0, 0));
-	DrawString(100, 400, "Push [0]Key To Title", GetColor(0, 0, 0));
-
-	DrawFormatString(100, 450, GetColor(0, 0, 0), "StatusPoint = %d", statusmanager.StatusPoint);
-	DrawFormatString(100, 350, GetColor(0, 0, 0), "ReleaseLevel = %d", ReleaseLevel);
-	DrawFormatString(100, 550, GetColor(0, 0, 0), "NextNeedPoint = %d", statusmanager.NextNeedPoint);
-	DrawFormatString(100, 650, GetColor(0, 0, 0), "PAtack = %d", statusmanager.PAttack);
-	DrawFormatString(100, 700, GetColor(0, 0, 0), "PAtackWaiting = %f", statusmanager.PAttackWaiting);
 
 	Mx = Screen::WIDTH - MouseSize;
 	int num = MouseSize / 16;
 	DrawExtendGraph(Mx, My + num, Screen::WIDTH, My + MouseSize + num, hImage[MouseImage], true);
+
+
+	MapNumber = statusmanager.ELevel % 5 + 3;
+	if (statusmanager.ELevel % 5 == 0) {
+		MapNumber = 8;
+	}
+
+	DrawExtendGraph(-20, -30 + 30, 480 - 100, 470 - 100 + 30, hImage[MapNumber], true);
 
 }

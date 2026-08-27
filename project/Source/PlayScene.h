@@ -26,6 +26,8 @@ private:
 	int My = 0;
 	bool isClick = false;
 
+	int MapNumber = 0;
+
 };
 
 enum class GameState {
