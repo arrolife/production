@@ -20,6 +20,7 @@ PlayScene::PlayScene()
 	hImage[6] = LoadGraph("data/image/UI/map_3.png");
 	hImage[7] = LoadGraph("data/image/UI/map_4.png");
 	hImage[8] = LoadGraph("data/image/UI/map_5.png");
+	hImage[9] = LoadGraph("data/image/UI/panel.png");
 
 	new Back();
 	new Player();
@@ -105,19 +106,31 @@ void PlayScene::Update()
 		StatusSet = false;
 
 		if (isWin) {
-			SelectLevel += 1;
-			if (statusmanager.ELevel % 5 == 0) {
-				player->PlayerLevel += 1;
-				player->MaxPhp += 1;
+
+			CoolTimeCount += 1;
+
+			if (CoolTimeCount >= CoolTime) {
+
+				CoolTimeCount = 0;
+
+				SelectLevel += 1;
+				if (statusmanager.ELevel % 5 == 0) {
+					player->PlayerLevel += 1;
+					player->MaxPhp += 1;
+					player->MotionSpeed += 10;
+				}
+
+				if (statusmanager.ELevel % 10 == 0 && player->MaxAttackCount != 5) {
+					player->MaxAttackCount -= 1;
+				}
+
+				player->Php = player->MaxPhp;
+				statusmanager.SetEnemyStatus(SelectLevel);
+				gamestate = GameState::battle;
+
 			}
 
-			if (statusmanager.ELevel % 10 == 0 && player->MaxAttackCount != 5) {
-				player->MaxAttackCount -= 1;
-			}
-
-			player->Php = player->MaxPhp;
-			statusmanager.SetEnemyStatus(SelectLevel);
-			gamestate = GameState::battle;
+			
 		}
 
 		if (CheckHitKey(KEY_INPUT_H)) {
@@ -141,11 +154,51 @@ void PlayScene::Draw()
 	DrawExtendGraph(Mx, My + num, Screen::WIDTH, My + MouseSize + num, hImage[MouseImage], true);
 
 
-	MapNumber = statusmanager.ELevel % 5 + 3;
-	if (statusmanager.ELevel % 5 == 0) {
-		MapNumber = 8;
+	switch (gamestate) {
+
+	case GameState::result:
+
+		if (PanelBlink) {
+
+			MapNumber = 3;
+			BlinkCount += 1;
+
+			if (BlinkCount >= 60) {
+
+				BlinkCount = 0;
+				PanelBlink = false;
+			}
+		}
+		else {
+
+			BlinkCount += 1;
+			MapNumber = statusmanager.ELevel % 5 + 4;
+			if (statusmanager.ELevel % 5 == 0) {
+				MapNumber = 4;
+			}
+
+			if (BlinkCount >= 60) {
+
+				BlinkCount = 0;
+				PanelBlink = true;
+			}
+
+		}
+
+		DrawExtendGraph((Screen::WIDTH - PanelSize) / 2, (Screen::HEIGHT - PanelSize) / 2,
+			(Screen::WIDTH - PanelSize) / 2 + PanelSize, (Screen::HEIGHT - PanelSize) / 2 + PanelSize, hImage[9], true);
+
+		DrawExtendGraph(-20 + 767, 0 + 400, 380 + 767, 400 + 400, hImage[MapNumber], true);
+
+		break;
+
+	default:
+		break;
+
 	}
 
-	DrawExtendGraph(-20, -30 + 30, 480 - 100, 470 - 100 + 30, hImage[MapNumber], true);
+
+	
+	
 
 }

@@ -14,7 +14,8 @@ public:
 	int Php = 3;
 	int MaxPhp = 3;
 	int PlayerLevel = 0;
-	int MaxAttackCount = 7;
+	int MaxAttackCount = 7; //初期値7
+	int MotionSpeed = 80;
 
 private:
 
@@ -29,7 +30,7 @@ private:
 
 
 	int Move = 0;
-	int MotionSpeed = 80;
+	
 	bool Back = false;
 
 	bool DodgedMotion = false;

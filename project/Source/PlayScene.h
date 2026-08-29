@@ -27,6 +27,12 @@ private:
 	bool isClick = false;
 
 	int MapNumber = 0;
+	int PanelSize = 450;
+	bool PanelBlink = false;
+	int BlinkCount = 0;
+
+	int CoolTime = 300;
+	int CoolTimeCount = 0;
 
 };
 
