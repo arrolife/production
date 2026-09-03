@@ -22,6 +22,18 @@ PlayScene::PlayScene()
 	hImage[8] = LoadGraph("data/image/UI/map_5.png");
 	hImage[9] = LoadGraph("data/image/UI/panel.png");
 
+	BGMHandle[0] = LoadSoundMem("data/sound/bgm/map1.mp3");
+	BGMHandle[1] = LoadSoundMem("data/sound/bgm/map2.mp3");
+	BGMHandle[2] = LoadSoundMem("data/sound/bgm/map3.mp3");
+	BGMHandle[3] = LoadSoundMem("data/sound/bgm/map4.mp3");
+	BGMHandle[4] = LoadSoundMem("data/sound/bgm/map5.mp3");
+	BGMHandle[5] = LoadSoundMem("data/sound/bgm/boss1.mp3");
+	BGMHandle[6] = LoadSoundMem("data/sound/bgm/boss2.mp3");
+	BGMHandle[7] = LoadSoundMem("data/sound/bgm/boss3.mp3");
+
+	PlaySoundMem(BGMHandle[0], DX_PLAYTYPE_BACK);
+	BGMNumber = 0;
+	
 	new Back();
 	new Player();
 	new Enemy();
@@ -33,6 +45,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+
 
 	Player* player = FindGameObject<Player>();
 
@@ -65,7 +78,7 @@ void PlayScene::Update()
 
 		if (isLevelSelect) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 1;
+					SelectLevel = 26;
 
 					//仮
 					if (!StatusSet) {
@@ -82,6 +95,96 @@ void PlayScene::Update()
 
 	case GameState::battle:
 
+
+		//BGM
+		switch (statusmanager.ELevel) {
+
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			NumberCheck = BGMNumber;
+			BGMNumber = 0;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+			NumberCheck = BGMNumber;
+			BGMNumber = 1;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+			NumberCheck = BGMNumber;
+			BGMNumber = 2;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+			NumberCheck = BGMNumber;
+			BGMNumber = 3;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 21:
+		case 22:
+		case 23:
+		case 24:
+			NumberCheck = BGMNumber;
+			BGMNumber = 4;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 5:
+		case 10:
+		case 15:
+		case 20:
+			NumberCheck = BGMNumber;
+			BGMNumber = 5;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 25:
+			NumberCheck = BGMNumber;
+			BGMNumber = 6;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+		case 26:
+			NumberCheck = BGMNumber;
+			BGMNumber = 7;
+			if (NumberCheck != BGMNumber) {
+				StopSoundMem(BGMHandle[NumberCheck]);
+			}
+			break;
+
+
+
+		}
+
 		/*if (!StatusSet) {
 			statusmanager.SetEnemyStatus(SelectLevel);
 			statusmanager.Php = statusmanager.MaxPhp;
@@ -89,14 +192,51 @@ void PlayScene::Update()
 			isLevelSelect = false;
 		}*/
 
-		if (player->Php <= 0) {
-			isWin = false;
-			gamestate = GameState::result;
-		}
+		
 
 		if (statusmanager.Ehp <= 0) {
 			isWin = true;
 			gamestate = GameState::result;
+		}
+
+		if (player->Php <= 0) {
+
+			isWin = false;
+
+			if (statusmanager.ELevel != 26) {
+
+				switch ((statusmanager.ELevel - 1) / 5) {
+
+				case 0:
+					SelectLevel = 0;
+					break;
+
+				case 1:
+					SelectLevel = 5;
+					break;
+
+				case 2:
+					SelectLevel = 10;
+					break;
+
+				case 3:
+					SelectLevel = 15;
+					break;
+
+				case 4:
+					SelectLevel = 20;
+					break;
+
+				}
+			}
+
+			if (statusmanager.ELevel == 26) {
+				SelectLevel = 25;
+			}
+
+			statusmanager.SetEnemyStatus(SelectLevel);
+			gamestate = GameState::result;
+
 		}
 
 		break;
@@ -104,15 +244,14 @@ void PlayScene::Update()
 	case GameState::result:
 
 		StatusSet = false;
+		
+		CoolTimeCount += 1;
 
-		if (isWin) {
+		if (CoolTimeCount >= CoolTime) {
 
-			CoolTimeCount += 1;
+			CoolTimeCount = 0;
 
-			if (CoolTimeCount >= CoolTime) {
-
-				CoolTimeCount = 0;
-
+			if (isWin) {
 				SelectLevel += 1;
 				if (statusmanager.ELevel % 5 == 0) {
 					player->PlayerLevel += 1;
@@ -127,23 +266,27 @@ void PlayScene::Update()
 				player->Php = player->MaxPhp;
 				statusmanager.SetEnemyStatus(SelectLevel);
 				gamestate = GameState::battle;
-
 			}
 
-			
-		}
-
-		if (CheckHitKey(KEY_INPUT_H)) {
-			gamestate = GameState::home;
+			if (!isWin) {
+				SelectLevel += 1;
+				player->Php = player->MaxPhp;
+				statusmanager.SetEnemyStatus(SelectLevel);
+				gamestate = GameState::battle;
+			}
 		}
 
 		break;
 
 	}
 
-	if (CheckHitKey(KEY_INPUT_0)) {
-		SceneManager::ChangeScene("TITLE");
+	//音楽ループ再生してくれるところ
+	if (!CheckSoundMem(BGMHandle[BGMNumber])) {
+		PlaySoundMem(BGMHandle[BGMNumber], DX_PLAYTYPE_BACK);
 	}
+
+
+
 }
 
 void PlayScene::Draw()

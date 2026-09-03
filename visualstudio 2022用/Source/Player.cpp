@@ -129,53 +129,7 @@ void Player::Update()
 void Player::Draw()
 {
 
-	switch (MaxAttackCount) {
-
-	case 7:
-
-		if (AttackCount == 0) {
-			CircleNumber = 0;
-		}
-		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 1;
-		}
-		else {
-			CircleNumber = AttackCount + 1;
-		}
-
-		break;
-
-	case 6:
-
-		if (AttackCount == 0) {
-			CircleNumber = 0;
-		}
-		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 1;
-		}
-		else {
-			CircleNumber = AttackCount + 7;
-		}
-
-		break;
-
-	case 5:
-
-		if (AttackCount == 0) {
-			CircleNumber = 0;
-		}
-		else if (AttackCount == MaxAttackCount) {
-			CircleNumber = 1;
-		}
-		else {
-			CircleNumber = AttackCount + 12;
-		}
-
-		break;
-
-	}
-
-	DrawExtendGraph(590, 530, 730, 670, CircleImage[CircleNumber], true);
+	
 
 	int num = 0; //仮
 
@@ -217,7 +171,53 @@ void Player::Draw()
 
 		}
 
-		
+		switch (MaxAttackCount) {
+
+		case 7:
+
+			if (AttackCount == 0) {
+				CircleNumber = 0;
+			}
+			else if (AttackCount == MaxAttackCount) {
+				CircleNumber = 1;
+			}
+			else {
+				CircleNumber = AttackCount + 1;
+			}
+
+			break;
+
+		case 6:
+
+			if (AttackCount == 0) {
+				CircleNumber = 0;
+			}
+			else if (AttackCount == MaxAttackCount) {
+				CircleNumber = 1;
+			}
+			else {
+				CircleNumber = AttackCount + 7;
+			}
+
+			break;
+
+		case 5:
+
+			if (AttackCount == 0) {
+				CircleNumber = 0;
+			}
+			else if (AttackCount == MaxAttackCount) {
+				CircleNumber = 1;
+			}
+			else {
+				CircleNumber = AttackCount + 12;
+			}
+
+			break;
+
+		}
+
+		DrawExtendGraph(590, 530, 730, 670, CircleImage[CircleNumber], true);
 
 		switch (PlayerLevel) {
 

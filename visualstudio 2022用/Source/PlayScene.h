@@ -13,6 +13,9 @@ public:
 	void Draw() override;
 
 private:
+
+
+	int BGMHandle[8];
 	bool StatusSet = false;
 	bool isWin = false;
 	int ReleaseLevel = 1;
@@ -33,6 +36,9 @@ private:
 
 	int CoolTime = 300;
 	int CoolTimeCount = 0;
+
+	int BGMNumber = 0;
+	int NumberCheck = 0;
 
 };
 
