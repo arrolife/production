@@ -31,6 +31,9 @@ Player::Player()
 	CircleImage[15] = LoadGraph("data/image/UI/circle5-3.png");
 	CircleImage[16] = LoadGraph("data/image/UI/circle5-4.png");
 
+	SEHandle[0] = LoadSoundMem("data/sound/se/player_attack.mp3");
+	SEHandle[1] = LoadSoundMem("data/sound/se/enemy_attack.mp3");
+
 }
 
 Player::~Player()
@@ -98,6 +101,9 @@ void Player::Update()
 
 			if (!DodgedMotion) {
 				Php -= 1;
+
+				PlaySoundMem(SEHandle[1], DX_PLAYTYPE_BACK);
+
 			}
 
 		}
@@ -157,6 +163,7 @@ void Player::Draw()
 
 			if (!isAttack && !Back) {
 				isAttack = true;
+				PlaySoundMem(SEHandle[0], DX_PLAYTYPE_BACK);
 			}
 
 			Move -= MotionSpeed;

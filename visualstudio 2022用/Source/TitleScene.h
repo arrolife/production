@@ -15,10 +15,14 @@ public:
 	void Draw() override;
 
 private:
-	int hImage = 0;
+	int hImage[2];
 	int TitleWidth = 1178;
 	int TitleHeight = 840;
 
+	int BGMHandle = 0;
+
+	int WaitCount = 0;
+	int WaitTime = 60;
 	int BlinkCount = 0;
 	bool isBlink = false;
 

@@ -18,11 +18,10 @@ private:
 	int BGMHandle[8];
 	bool StatusSet = false;
 	bool isWin = false;
-	int ReleaseLevel = 1;
 	bool isLevelSelect = false;
 	int SelectLevel = 0;
 	int AutoAddCount = 0;
-	int hImage[11];
+	int hImage[15];
 	int MouseImage = 0;
 	int MouseSize = 128;
 	int Mx = 1700;
@@ -40,11 +39,16 @@ private:
 	int BGMNumber = 0;
 	int NumberCheck = 0;
 
+	int TutorialTime = 300;
+	int TutorialCount = 0;
+
+	int ClearWaitTime = 120;
+	int ClearWaitCount = 0;
+
 };
 
 enum class GameState {
 	home,
-	direction,
 	battle,
 	result,
 	clear

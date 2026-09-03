@@ -7,17 +7,29 @@ TitleScene::TitleScene()
 	isBlink = false;
 	BlinkCount = 0;
 
-	hImage = LoadGraph("data/image/UI/title.png");
+	hImage[0] = LoadGraph("data/image/UI/title.png");
+	hImage[1] = LoadGraph("data/image/UI/click.png");
+
+	BGMHandle = LoadSoundMem("data/sound/bgm/map1.mp3");
+
+	PlaySoundMem(BGMHandle, DX_PLAYTYPE_BACK);
+
 	new Back();
 }
 
 TitleScene::~TitleScene()
 {
+	
 }
 
 void TitleScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_P)) {
+
+	WaitCount += 1;
+
+	if (((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 || (GetMouseInput() & MOUSE_INPUT_RIGHT) != 0) && WaitCount >= WaitTime) {
+		StopSoundMem(BGMHandle);
+		WaitCount = 0;
 		SceneManager::ChangeScene("PLAY");
 	}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
@@ -36,18 +48,14 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	SetFontSize(70);
-	SetFontThickness(100);
-
 	
-
 	int y = - 50;
 
 	if (!isBlink) {
-		DrawString(660, 600, "Plese Mouse Click", GetColor(60, 60, 60));
+		DrawGraph(480, 410, hImage[1], true);
 	}
 	
 	DrawExtendGraph((Screen::WIDTH - TitleWidth) / 2, y,
-		(Screen::WIDTH - TitleWidth) / 2 + TitleWidth, y + TitleHeight, hImage, true);
+		(Screen::WIDTH - TitleWidth) / 2 + TitleWidth, y + TitleHeight, hImage[0], true);
 
 }

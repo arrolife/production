@@ -22,6 +22,10 @@ PlayScene::PlayScene()
 	hImage[8] = LoadGraph("data/image/UI/map_5.png");
 	hImage[9] = LoadGraph("data/image/UI/panel.png");
 	hImage[10] = LoadGraph("data/image/UI/panel_2.png");
+	hImage[11] = LoadGraph("data/image/UI/click.png");
+	hImage[12] = LoadGraph("data/image/UI/tutorial.png");
+	hImage[13] = LoadGraph("data/image/UI/gameclear.png");
+	hImage[14] = LoadGraph("data/image/UI/click2.png");
 
 	BGMHandle[0] = LoadSoundMem("data/sound/bgm/map1.mp3");
 	BGMHandle[1] = LoadSoundMem("data/sound/bgm/map2.mp3");
@@ -33,20 +37,28 @@ PlayScene::PlayScene()
 	BGMHandle[7] = LoadSoundMem("data/sound/bgm/boss3.mp3");
 
 	PlaySoundMem(BGMHandle[0], DX_PLAYTYPE_BACK);
+	
 	BGMNumber = 0;
 	
 	new Back();
 	new Player();
 	new Enemy();
+
+
 }
 
 PlayScene::~PlayScene()
 {
+	
+	
 }
 
 void PlayScene::Update()
 {
-
+	//音楽ループ再生してくれるところ
+	if (!CheckSoundMem(BGMHandle[BGMNumber])) {
+		PlaySoundMem(BGMHandle[BGMNumber], DX_PLAYTYPE_BACK);
+	}
 
 	Player* player = FindGameObject<Player>();
 
@@ -69,28 +81,24 @@ void PlayScene::Update()
 	}
 
 
+
 	switch (gamestate) {
 
 	case GameState::home:
 
-		if (CheckHitKey(KEY_INPUT_B)) {
-			isLevelSelect = true;
+		TutorialCount += 1;
+
+		if (TutorialCount >= TutorialTime) {
+			SelectLevel = 1;
+
+			if (!StatusSet) {
+				statusmanager.SetEnemyStatus(SelectLevel);
+				StatusSet = true;
+			}
+
+			gamestate = GameState::battle;
 		}
 
-		if (isLevelSelect) {
-				if (ReleaseLevel >= 1) {
-					SelectLevel = 1;
-
-					//仮
-					if (!StatusSet) {
-						statusmanager.SetEnemyStatus(SelectLevel);
-						StatusSet = true;
-						isLevelSelect = false;
-					}
-
-					gamestate = GameState::battle;
-				}
-		}
 
 		break;
 
@@ -186,18 +194,18 @@ void PlayScene::Update()
 
 		}
 
-		/*if (!StatusSet) {
-			statusmanager.SetEnemyStatus(SelectLevel);
-			statusmanager.Php = statusmanager.MaxPhp;
-			StatusSet = true;
-			isLevelSelect = false;
-		}*/
-
 		
-
 		if (statusmanager.Ehp <= 0) {
 			isWin = true;
-			gamestate = GameState::result;
+
+			if (statusmanager.ELevel == 26){
+				gamestate = GameState::clear;
+			}
+			else {
+				gamestate = GameState::result;
+			}
+
+			
 		}
 
 		if (player->Php <= 0) {
@@ -279,12 +287,25 @@ void PlayScene::Update()
 
 		break;
 
+	case GameState::clear:
+
+		ClearWaitCount += 1;
+
+		if (((GetMouseInput() & MOUSE_INPUT_LEFT) != 0 || (GetMouseInput() & MOUSE_INPUT_RIGHT) != 0) && ClearWaitCount >= ClearWaitTime) {
+			for (int i = 0; i < 8; i++) {
+				StopSoundMem(BGMHandle[i]);
+			}
+			ClearWaitCount = 0;
+			SceneManager::ChangeScene("TITLE");
+			
+		}
+
+
+		break;
+
 	}
 
-	//音楽ループ再生してくれるところ
-	if (!CheckSoundMem(BGMHandle[BGMNumber])) {
-		PlaySoundMem(BGMHandle[BGMNumber], DX_PLAYTYPE_BACK);
-	}
+	
 
 	//仮
 	if (CheckHitKey(KEY_INPUT_0)) {
@@ -302,6 +323,15 @@ void PlayScene::Draw()
 
 
 	switch (gamestate) {
+
+	case GameState::home :
+
+		DrawGraph(550, 200, hImage[12], true);
+		Mx = 450;
+		DrawExtendGraph(Mx, 310, Mx + MouseSize, 310 + MouseSize, hImage[1], true);
+		DrawExtendGraph(Mx, 500, Mx + MouseSize, 500 + MouseSize, hImage[2], true);
+
+		break;
 
 	case GameState::result:
 
@@ -345,6 +375,11 @@ void PlayScene::Draw()
 				(Screen::WIDTH - PanelSize) / 2 + PanelSize, (Screen::HEIGHT - PanelSize) / 2 + PanelSize, hImage[10], true);
 		}
 
+		break;
+
+	case GameState::clear:
+		DrawGraph(500, 250, hImage[13], true);
+		DrawGraph(500, 400, hImage[14], true);
 		break;
 
 	default:

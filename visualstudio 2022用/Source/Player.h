@@ -22,6 +22,7 @@ private:
 	
 	int hImage[5];
 	int UIImage[1];
+	int SEHandle[2];
 	int CircleImage[17];
 	int CircleNumber = 0;
 	int AttackCount = 0;
