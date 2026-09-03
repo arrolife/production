@@ -22,7 +22,7 @@ private:
 	bool isLevelSelect = false;
 	int SelectLevel = 0;
 	int AutoAddCount = 0;
-	int hImage[10];
+	int hImage[11];
 	int MouseImage = 0;
 	int MouseSize = 128;
 	int Mx = 1700;

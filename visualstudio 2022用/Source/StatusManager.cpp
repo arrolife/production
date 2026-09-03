@@ -324,7 +324,7 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 16:
 
-		MaxEhp = 20;
+		MaxEhp = 22;
 		AttackSpeed = 1.8f;
 		EAttackWaitMin = 100;
 		EAttackWaitMax = 250;
@@ -343,7 +343,7 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 17:
 
-		MaxEhp = 25;
+		MaxEhp = 27;
 		AttackSpeed = 2.0f;
 		EAttackWaitMin = 80;
 		EAttackWaitMax = 200;
@@ -362,7 +362,7 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 18:
 
-		MaxEhp = 30;
+		MaxEhp = 32;
 		AttackSpeed = 2.0f;
 		EAttackWaitMin = 100;
 		EAttackWaitMax = 300;
@@ -381,7 +381,7 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 19:
 
-		MaxEhp = 40;
+		MaxEhp = 42;
 		AttackSpeed = 1.5f;
 		EAttackWaitMin = 50;
 		EAttackWaitMax = 300;
@@ -400,10 +400,10 @@ void StatusManager::SetEnemyStatus(int Level)
 
 	case 20:
 
-		MaxEhp = 35;
+		MaxEhp = 45;
 		AttackSpeed = 2.8f;
 		EAttackWaitMin = 5;
-		EAttackWaitMax = 250;
+		EAttackWaitMax = 200;
 		AttackPattern[0] = 3;
 		AttackPattern[1] = 2;
 		AttackPattern[2] = 1;

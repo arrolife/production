@@ -21,6 +21,7 @@ PlayScene::PlayScene()
 	hImage[7] = LoadGraph("data/image/UI/map_4.png");
 	hImage[8] = LoadGraph("data/image/UI/map_5.png");
 	hImage[9] = LoadGraph("data/image/UI/panel.png");
+	hImage[10] = LoadGraph("data/image/UI/panel_2.png");
 
 	BGMHandle[0] = LoadSoundMem("data/sound/bgm/map1.mp3");
 	BGMHandle[1] = LoadSoundMem("data/sound/bgm/map2.mp3");
@@ -78,7 +79,7 @@ void PlayScene::Update()
 
 		if (isLevelSelect) {
 				if (ReleaseLevel >= 1) {
-					SelectLevel = 26;
+					SelectLevel = 1;
 
 					//仮
 					if (!StatusSet) {
@@ -285,7 +286,10 @@ void PlayScene::Update()
 		PlaySoundMem(BGMHandle[BGMNumber], DX_PLAYTYPE_BACK);
 	}
 
-
+	//仮
+	if (CheckHitKey(KEY_INPUT_0)) {
+		SceneManager::ChangeScene("TITLE");
+	}
 
 }
 
@@ -328,10 +332,18 @@ void PlayScene::Draw()
 
 		}
 
-		DrawExtendGraph((Screen::WIDTH - PanelSize) / 2, (Screen::HEIGHT - PanelSize) / 2,
-			(Screen::WIDTH - PanelSize) / 2 + PanelSize, (Screen::HEIGHT - PanelSize) / 2 + PanelSize, hImage[9], true);
+		if (statusmanager.ELevel != 25) {
+			DrawExtendGraph((Screen::WIDTH - PanelSize) / 2, (Screen::HEIGHT - PanelSize) / 2,
+				(Screen::WIDTH - PanelSize) / 2 + PanelSize, (Screen::HEIGHT - PanelSize) / 2 + PanelSize, hImage[9], true);
 
-		DrawExtendGraph(-20 + 767, 0 + 400, 380 + 767, 400 + 400, hImage[MapNumber], true);
+			DrawExtendGraph(-20 + 767, 0 + 400, 380 + 767, 400 + 400, hImage[MapNumber], true);
+		}
+		
+
+		if (statusmanager.ELevel == 25) {
+			DrawExtendGraph((Screen::WIDTH - PanelSize) / 2, (Screen::HEIGHT - PanelSize) / 2,
+				(Screen::WIDTH - PanelSize) / 2 + PanelSize, (Screen::HEIGHT - PanelSize) / 2 + PanelSize, hImage[10], true);
+		}
 
 		break;
 
